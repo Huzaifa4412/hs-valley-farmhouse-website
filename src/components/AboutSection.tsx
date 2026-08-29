@@ -1,0 +1,162 @@
+import { useEffect, useRef } from 'react';
+import { MapPin, Shield } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { imagesConfig } from '../config/siteConfig';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export function AboutSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const rightColRef = useRef<HTMLDivElement>(null);
+  const imageFrameRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(leftColRef.current, {
+        y: 50,
+        opacity: 0,
+        duration: 1.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 70%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      gsap.from(rightColRef.current, {
+        y: 50,
+        opacity: 0,
+        duration: 1.1,
+        delay: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 70%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      gsap.from(imageFrameRef.current, {
+        clipPath: 'inset(15% 0% 15% 0%)',
+        scale: 0.95,
+        opacity: 0.8,
+        duration: 1.3,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: imageFrameRef.current,
+          start: 'top 75%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="about"
+      className="relative w-full py-20 sm:py-28 md:py-40 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+        {/* Asymmetrical Editorial Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-start">
+          {/* Left Column: Big Serif Display */}
+          <div ref={leftColRef} className="lg:col-span-6">
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
+              <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
+              <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono">
+                About the Estate
+              </span>
+            </div>
+
+            <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif-editorial font-light leading-[1.08] sm:leading-[1.05] tracking-tight uppercase mb-6 sm:mb-8">
+              A Place <br />
+              <span className="italic text-[#B99A5B]">Made for Moments</span>
+            </h2>
+
+            {/* Architecture / Philosophy Detail */}
+            <div className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm md:text-base font-sans-body text-[#FAF9F5]/70 font-light leading-relaxed max-w-lg">
+              <p>
+                Set against the open skies of Gabol Abad Road near Bahria Town Karachi, HS Valley Farmhouse was conceived as an intimate, nature-embraced retreat where privacy and tranquility come first.
+              </p>
+              <p>
+                Whether hosting a memorable family gathering, an intimate milestone celebration, or seeking a quiet respite away from the bustle of the city, the grounds offer an uncluttered canvas for unforgettable memories.
+              </p>
+            </div>
+
+            {/* Location Pill & Verification Tags */}
+            <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-[#FAF9F5]/10 flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-6">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#B99A5B]/30 flex items-center justify-center bg-[#14251D] shrink-0">
+                  <MapPin size={15} className="text-[#B99A5B]" />
+                </div>
+                <div>
+                  <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.2em] sm:tracking-[0.25em] uppercase text-[#B99A5B] block">
+                    LOCATION
+                  </span>
+                  <span className="text-xs sm:text-sm font-medium text-[#FAF9F5]">
+                    Bahria Town Karachi • Gabol Abad
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#B99A5B]/30 flex items-center justify-center bg-[#14251D] shrink-0">
+                  <Shield size={15} className="text-[#B99A5B]" />
+                </div>
+                <div>
+                  <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.2em] sm:tracking-[0.25em] uppercase text-[#B99A5B] block">
+                    SECURITY
+                  </span>
+                  <span className="text-xs sm:text-sm font-medium text-[#FAF9F5]">
+                    Private Gated Compound
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Editorial Paragraph & Featured Architectural Imagery */}
+          <div ref={rightColRef} className="lg:col-span-6 flex flex-col space-y-6 sm:space-y-8">
+            <div className="p-6 sm:p-8 md:p-10 rounded-2xl bg-[#14251D]/60 border border-[#B99A5B]/20 relative overflow-hidden backdrop-blur-xs">
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.28em] text-[#B99A5B] block mb-2.5 sm:mb-3">
+                The Mission
+              </span>
+              <p className="text-lg sm:text-xl md:text-2xl font-serif-editorial text-[#FAF9F5] font-light leading-snug">
+                &ldquo;HS Valley Farmhouse is designed as a private space where families, friends, and groups can slow down, reconnect, and enjoy time together away from the city&apos;s everyday pace.&rdquo;
+              </p>
+            </div>
+
+            {/* Asymmetrical Image Frame */}
+            <div
+              ref={imageFrameRef}
+              data-cursor="view"
+              className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-[#FAF9F5]/10 shadow-2xl group"
+            >
+              <img
+                src={imagesConfig.exterior}
+                alt="HS Valley Farmhouse Exterior Grounds"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F0D]/80 via-transparent to-transparent" />
+              <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex items-center justify-between text-[11px] sm:text-xs font-mono text-[#FAF9F5]/80">
+                <span>SECLUDED SANCTUARY</span>
+                <span className="text-[#B99A5B]">ESTATE EXTERIOR</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

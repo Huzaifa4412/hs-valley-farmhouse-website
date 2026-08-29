@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary-green: #14251D;
+    --color-dark: #0B0F0D;
+    --color-warm-cream: #F3EFE5;
+    --color-off-white: #FAF9F5;
+    --color-gold: #B99A5B;
+  }
+
+  body {
+    font-family: 'Manrope', 'Inter', sans-serif;
+    background-color: #0B0F0D;
+    color: #FAF9F5;
+  }
+
+  h1, h2, h3, .font-serif-display {
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Custom Typography & Utility Classes */
+.font-serif-editorial {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.font-serif-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-sans-body {
+  font-family: 'Manrope', 'Inter', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0F0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #14251D;
+  border-radius: 9999px;
+  border: 1px solid rgba(185, 154, 91, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B99A5B;
+}
+
+/* Swiper custom overrides */
+.swiper-pagination-bullet-active {
+  background-color: #B99A5B !important;
+  width: 24px !important;
+  border-radius: 4px !important;
+}
+
+/* Image reveal clip-paths */
+.clip-path-inset-full {
+  clip-path: inset(100% 0 0 0);
+}
+
+.clip-path-inset-none {
+  clip-path: inset(0% 0 0 0);
+}
+
+/* Glass & Texture Accents */
+.luxury-glass {
+  background: rgba(20, 37, 29, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(185, 154, 91, 0.15);
+}
+
+.luxury-glass-light {
+  background: rgba(243, 239, 229, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(20, 37, 29, 0.1);
+}
+
+/* Ken Burns subtle animation */
+@keyframes kenburns {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06) translate(-0.5%, -0.5%);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-ken-burns {
+  animation: kenburns 28s ease-in-out infinite alternate;
+}
+
+/* Pulse animation for WhatsApp badge */
+@keyframes soft-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
+  }
+}
+
+.animate-soft-pulse {
+  animation: soft-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Reduced Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

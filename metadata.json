@@ -1,0 +1,6 @@
+{
+  "name": "HS Valley Farmhouse",
+  "description": "Luxury private farmhouse in Bahria Town Karachi for family gatherings, celebrations, and calm escapes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
