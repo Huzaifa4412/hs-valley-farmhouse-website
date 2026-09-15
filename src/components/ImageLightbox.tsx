@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GalleryItem } from '../types';
+import { thumbFor } from '../config/siteConfig';
 
 interface ImageLightboxProps {
   isOpen: boolean;
@@ -102,7 +103,7 @@ export function ImageLightbox({
           <img
             key={currentItem.id}
             src={currentItem.image}
-            alt={currentItem.title}
+            alt={currentItem.caption}
             className="max-w-full max-h-[60vh] sm:max-h-[68vh] object-contain rounded-lg shadow-2xl transition-all duration-500 animate-in zoom-in-95"
           />
           {/* Caption */}
@@ -142,8 +143,11 @@ export function ImageLightbox({
             }`}
           >
             <img
-              src={item.image}
-              alt={item.title}
+              src={thumbFor(item.image)}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
             />
           </button>

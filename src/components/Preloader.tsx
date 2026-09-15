@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { imagesConfig } from '../config/siteConfig';
 
 interface PreloaderProps {
   onComplete: () => void;
@@ -7,7 +8,7 @@ interface PreloaderProps {
 
 export function Preloader({ onComplete }: PreloaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const hsRef = useRef<HTMLSpanElement>(null);
+  const hsRef = useRef<HTMLImageElement>(null);
   const valleyRef = useRef<HTMLSpanElement>(null);
   const farmhouseRef = useRef<HTMLSpanElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
@@ -101,12 +102,14 @@ export function Preloader({ onComplete }: PreloaderProps) {
       <div className="flex flex-col items-center justify-center max-w-lg px-6 text-center">
         {/* Monogram / Top Badge */}
         <div className="overflow-hidden mb-3">
-          <span
+          <img
             ref={hsRef}
-            className="block text-4xl md:text-5xl font-serif-editorial text-[#B99A5B] tracking-[0.25em] font-light"
-          >
-            HS
-          </span>
+            src={imagesConfig.brandMarkGold}
+            alt="HS Valley Farmhouse"
+            width={140}
+            height={140}
+            className="block w-20 h-20 md:w-28 md:h-28 object-contain"
+          />
         </div>
 
         {/* Dynamic Horizontal Accent Rule */}

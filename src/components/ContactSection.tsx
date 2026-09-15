@@ -159,7 +159,9 @@ export function ContactSection() {
       <div className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
         <img
           src={imagesConfig.ctaBackground}
-          alt="Atmospheric Background"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
           className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-[#0B0F0D]/95" />

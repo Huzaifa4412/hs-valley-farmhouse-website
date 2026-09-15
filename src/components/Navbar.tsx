@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight, MessageSquare, Phone, MapPin } from 'lucide-react';
-import { contactConfig } from '../config/siteConfig';
+import { contactConfig, imagesConfig } from '../config/siteConfig';
 
 interface NavbarProps {
   onOpenInquiry: () => void;
@@ -82,13 +82,24 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
           <a
             href="#"
             data-cursor="explore"
-            className="group flex flex-col focus:outline-hidden"
+            className="group flex items-center gap-2.5 sm:gap-3 focus:outline-hidden"
+            aria-label="HS Valley Farmhouse — home"
           >
-            <span className="font-serif-editorial text-base sm:text-lg md:text-xl font-light tracking-[0.2em] sm:tracking-[0.25em] text-[#FAF9F5] group-hover:text-[#B99A5B] transition-colors">
-              HS VALLEY
-            </span>
-            <span className="text-[8px] sm:text-[9px] md:text-[10px] font-sans-body tracking-[0.35em] sm:tracking-[0.4em] text-[#FAF9F5]/70 uppercase font-light">
-              FARMHOUSE
+            <img
+              src={imagesConfig.brandMarkGold}
+              alt=""
+              aria-hidden="true"
+              width={44}
+              height={44}
+              className="w-8 h-8 sm:w-10 sm:h-10 object-contain shrink-0 transition-transform duration-500 group-hover:scale-105"
+            />
+            <span className="flex flex-col">
+              <span className="font-serif-editorial text-base sm:text-lg md:text-xl font-light tracking-[0.2em] sm:tracking-[0.25em] text-[#FAF9F5] group-hover:text-[#B99A5B] transition-colors">
+                HS VALLEY
+              </span>
+              <span className="text-[8px] sm:text-[9px] md:text-[10px] font-sans-body tracking-[0.35em] sm:tracking-[0.4em] text-[#FAF9F5]/70 uppercase font-light">
+                FARMHOUSE
+              </span>
             </span>
           </a>
 

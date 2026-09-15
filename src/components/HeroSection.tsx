@@ -17,6 +17,7 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
   const eyebrowRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
+  const facilitiesRef = useRef<HTMLDivElement>(null);
   const ctaContainerRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLAnchorElement>(null);
 
@@ -42,7 +43,7 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
         });
 
         // Stagger in text elements
-        gsap.set([eyebrowRef.current, headingRef.current, paragraphRef.current, ctaContainerRef.current], {
+        gsap.set([eyebrowRef.current, headingRef.current, paragraphRef.current, facilitiesRef.current, ctaContainerRef.current], {
           y: 35,
           opacity: 0,
         });
@@ -68,12 +69,18 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
           duration: 0.8,
           ease: 'power3.out',
         }, '-=0.6')
+        .to(facilitiesRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          ease: 'power3.out',
+        }, '-=0.5')
         .to(ctaContainerRef.current, {
           y: 0,
           opacity: 1,
           duration: 0.8,
           ease: 'power3.out',
-        }, '-=0.5');
+        }, '-=0.45');
 
         if (scrollIndicatorRef.current) {
           tl.to(scrollIndicatorRef.current, {
@@ -130,14 +137,19 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
         ref={imageContainerRef}
         className="absolute inset-0 w-full h-full overflow-hidden"
       >
-        <img
-          ref={imageRef}
-          src={imagesConfig.hero}
-          alt="HS Valley Farmhouse Evening Sanctuary"
-          loading="eager"
-          decoding="async"
-          className="w-full h-full object-cover object-center animate-ken-burns will-change-transform scale-105"
-        />
+        <picture className="block w-full h-full">
+          <source media="(max-width: 767px)" srcSet={imagesConfig.heroMobile} />
+          <source media="(min-width: 768px)" srcSet={imagesConfig.hero} />
+          <img
+            ref={imageRef}
+            src={imagesConfig.hero}
+            alt="HS Valley Farmhouse lit at night, with the front lawn and play area"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover object-center animate-ken-burns will-change-transform scale-105"
+          />
+        </picture>
 
         {/* Cinematic Multi-Layer Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F0D] via-[#0B0F0D]/40 to-[#0B0F0D]/50" />
@@ -169,8 +181,20 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
             ref={paragraphRef}
             className="text-sm sm:text-base md:text-xl font-sans-body text-[#FAF9F5]/85 font-light leading-relaxed max-w-2xl mb-6 sm:mb-8"
           >
-            A private space for meaningful gatherings, celebrations, and unforgettable moments away from the city&apos;s everyday pace.
+            A gated farmhouse on Gabol Abad Road with a covered swimming pool, children&apos;s playground, floodlit sports court and a resident mini zoo. Booked privately, one group at a time.
           </p>
+
+          {/* Signature Facilities Strip */}
+          <div
+            ref={facilitiesRef}
+            className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-6 sm:mb-8 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.18em] text-[#FAF9F5]/70">
+            {['Covered Pool', 'Kids Playground', 'Sports Court', 'Mini Zoo', 'AC Rooms'].map((label) => (
+              <span key={label} className="flex items-center gap-2">
+                <span className="w-1 h-1 rounded-full bg-[#B99A5B]" />
+                {label}
+              </span>
+            ))}
+          </div>
 
           {/* CTAs */}
           <div

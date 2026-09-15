@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ChevronRight } from 'lucide-react';
-import { imagesConfig } from '../config/siteConfig';
+import { imagesConfig, srcSetFor } from '../config/siteConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,43 +13,59 @@ export function HorizontalScrollSection() {
   const horizontalSlides = [
     {
       id: 'slide-1',
-      title: 'The Grand Pavilion',
-      subtitle: 'Modern Clean Architecture',
+      title: 'The Arrival Court',
+      subtitle: 'Columns, Palms & Paved Approach',
       tag: '01 / ARCHITECTURE',
-      image: imagesConfig.hero,
-      description: 'Refined structural lines blending seamlessly with natural greenery.',
+      image: imagesConfig.colonnadeSunset,
+      description: 'The entrance colonnade catching the last of the Karachi sun.',
     },
     {
       id: 'slide-2',
-      title: 'Emerald Lawns',
-      subtitle: 'Expansive Outdoor Space',
-      tag: '02 / OUTDOOR',
-      image: imagesConfig.garden,
-      description: 'Open grass fields ready for private family sports and evening lounging.',
+      title: 'Covered Swimming Pool',
+      subtitle: 'Shade, Slide & Still Water',
+      tag: '02 / THE POOL',
+      image: imagesConfig.coveredPoolDay,
+      description: 'A canopied pool with a water slide, loungers and a shallow end for children.',
     },
     {
       id: 'slide-3',
-      title: 'Poolside Veranda',
-      subtitle: 'Crystal Blue Waters',
-      tag: '03 / WATERFRONT',
-      image: imagesConfig.pool,
-      description: 'Private swimming area surrounded by sheltered pergolas and deck chairs.',
+      title: 'Lawns & Gazebos',
+      subtitle: 'Open Green, Shaded Seating',
+      tag: '03 / OUTDOOR',
+      image: imagesConfig.gazebosLawn,
+      description: 'Timber gazebos on cut grass, ready for tea, dinner or an afternoon of cricket.',
     },
     {
       id: 'slide-4',
-      title: 'Contemporary Living',
-      subtitle: 'Indoor Respite',
-      tag: '04 / INTERIORS',
-      image: imagesConfig.interior,
-      description: 'Air-conditioned lounge spaces crafted with neutral textures and quiet comfort.',
+      title: 'Play & Sport',
+      subtitle: 'Floodlit Court and Playground',
+      tag: '04 / ACTIVITIES',
+      image: imagesConfig.sportsCourtNight,
+      description: 'A netted court lit for night cricket and futsal, beside the children’s play area.',
     },
     {
       id: 'slide-5',
+      title: 'Indoors & Games',
+      subtitle: 'Air-Conditioned Comfort',
+      tag: '05 / INTERIORS',
+      image: imagesConfig.grandHall,
+      description: 'A marble hall linking the bedrooms, majlis lounge and billiards room.',
+    },
+    {
+      id: 'slide-6',
+      title: 'The Resident Mini Zoo',
+      subtitle: 'Peacocks, Deer & Pigeons',
+      tag: '06 / WILDLIFE',
+      image: imagesConfig.peacocksLawn,
+      description: 'Peafowl, deer, turkeys and a working pigeon loft kept across the grounds.',
+    },
+    {
+      id: 'slide-7',
       title: 'Twilight Atmosphere',
-      subtitle: 'Karachi Golden Hours',
-      tag: '05 / AMBIANCE',
-      image: imagesConfig.gallery5,
-      description: 'When the heat subsides and ambient estate illumination brings the night alive.',
+      subtitle: 'When the Lights Come On',
+      tag: '07 / AMBIANCE',
+      image: imagesConfig.poolNightBuilding,
+      description: 'The heat subsides, the pool is lit, and the evening slot begins.',
     },
   ];
 
@@ -129,6 +145,8 @@ export function HorizontalScrollSection() {
           >
             <img
               src={slide.image}
+              srcSet={srcSetFor(slide.image)}
+              sizes="(max-width: 768px) 84vw, 42vw"
               alt={slide.title}
               loading="lazy"
               decoding="async"

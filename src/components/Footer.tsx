@@ -1,5 +1,5 @@
 import { ArrowUp, ArrowUpRight, MapPin, Phone, MessageSquare, Calendar } from 'lucide-react';
-import { contactConfig } from '../config/siteConfig';
+import { contactConfig, imagesConfig } from '../config/siteConfig';
 
 export function Footer() {
   const scrollToTop = () => {
@@ -136,6 +136,15 @@ export function Footer() {
 
         {/* Monumental Brand Typography */}
         <div className="py-8 sm:py-12 border-t border-[#FAF9F5]/10 select-none overflow-hidden text-center">
+          <img
+            src={imagesConfig.brandMarkGold}
+            alt=""
+            aria-hidden="true"
+            width={96}
+            height={96}
+            loading="lazy"
+            className="w-14 h-14 sm:w-20 sm:h-20 object-contain mx-auto mb-4 sm:mb-6 opacity-80"
+          />
           <h2 className="text-[13vw] sm:text-[12vw] font-serif-editorial font-light text-[#FAF9F5]/10 tracking-[0.08em] sm:tracking-[0.1em] uppercase leading-none hover:text-[#B99A5B]/20 transition-colors duration-700">
             HS VALLEY
           </h2>

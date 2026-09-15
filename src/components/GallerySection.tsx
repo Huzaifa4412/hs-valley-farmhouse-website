@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { galleryItemsData } from '../config/siteConfig';
+import { galleryItemsData, srcSetFor, thumbFor } from '../config/siteConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,9 +18,11 @@ export function GallerySection({ onOpenLightbox }: GallerySectionProps) {
   const categories = [
     { id: 'all', label: 'All Perspectives' },
     { id: 'exterior', label: 'Architecture' },
-    { id: 'pool', label: 'Waterfront' },
-    { id: 'lawns', label: 'Lawns' },
-    { id: 'lounge', label: 'Interiors' },
+    { id: 'pool', label: 'Swimming Pool' },
+    { id: 'lawns', label: 'Lawns & Gazebos' },
+    { id: 'activities', label: 'Play & Sports' },
+    { id: 'rooms', label: 'Rooms & Halls' },
+    { id: 'wildlife', label: 'Mini Zoo' },
     { id: 'evening', label: 'Evening' },
   ];
 
@@ -121,15 +123,17 @@ export function GallerySection({ onOpenLightbox }: GallerySectionProps) {
               >
                 {/* Image */}
                 <img
-                  src={item.image}
-                  alt={item.title}
+                  src={thumbFor(item.image)}
+                  srcSet={srcSetFor(item.image)}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  alt={item.caption}
                   loading="lazy"
                   decoding="async"
                   className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-700 ease-out"
                 />
 
                 {/* Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F0D]/90 via-[#0B0F0D]/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F0D] via-[#0B0F0D]/45 to-[#0B0F0D]/5 opacity-85 group-hover:opacity-95 transition-opacity duration-300" />
 
                 {/* Content Badge */}
                 <div className="absolute inset-0 p-4 sm:p-6 flex flex-col justify-between">

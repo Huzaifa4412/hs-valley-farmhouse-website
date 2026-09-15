@@ -7,6 +7,7 @@ import { HeroSection } from './components/HeroSection';
 import { EditorialIntro } from './components/EditorialIntro';
 import { ImageBreak } from './components/ImageBreak';
 import { AboutSection } from './components/AboutSection';
+import { AmenitiesSection } from './components/AmenitiesSection';
 import { HorizontalScrollSection } from './components/HorizontalScrollSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { CinematicStatement } from './components/CinematicStatement';
@@ -105,7 +106,10 @@ export default function App() {
         {/* 7. Asymmetrical Editorial About Section */}
         <AboutSection />
 
-        {/* 8. Pinned Horizontal Image Journey */}
+        {/* 8. Estate Facilities & Resident Wildlife */}
+        <AmenitiesSection />
+
+        {/* 9. Pinned Horizontal Image Journey */}
         <HorizontalScrollSection />
 
         {/* 9. Curated Experience Moments */}

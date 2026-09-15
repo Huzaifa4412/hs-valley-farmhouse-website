@@ -49,7 +49,7 @@ export function BookingCTA({ onOpenInquiry }: BookingCTAProps) {
       <div className="absolute inset-0 w-full h-full">
         <img
           src={imagesConfig.ctaBackground}
-          alt="HS Valley Sanctuary Night Escape"
+          alt="The illuminated pool terrace at HS Valley Farmhouse after dark"
           loading="lazy"
           decoding="async"
           className="w-full h-full object-cover object-center scale-105"

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
-import { experiencesData } from '../config/siteConfig';
+import { experiencesData, srcSetFor } from '../config/siteConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,6 +79,8 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
               {/* Background Image with Zoom */}
               <img
                 src={item.image}
+                srcSet={srcSetFor(item.image)}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 alt={item.title}
                 loading="lazy"
                 decoding="async"

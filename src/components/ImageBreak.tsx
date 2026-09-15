@@ -58,7 +58,7 @@ export function ImageBreak() {
       <img
         ref={imageRef}
         src={imagesConfig.breakSection}
-        alt="HS Valley Farmhouse Scenic Break"
+        alt="The open lawn at HS Valley Farmhouse at dusk"
         loading="lazy"
         decoding="async"
         data-cursor="view"
@@ -78,7 +78,7 @@ export function ImageBreak() {
           Escape the ordinary.
         </h2>
         <p className="mt-4 text-xs md:text-sm font-mono uppercase tracking-[0.4em] text-[#B99A5B]">
-          A Secluded Oasis in Karachi
+          Gabol Abad Road • Bahria Town Karachi
         </p>
       </div>
     </section>

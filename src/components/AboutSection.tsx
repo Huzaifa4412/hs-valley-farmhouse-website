@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { MapPin, Shield } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { imagesConfig } from '../config/siteConfig';
+import { imagesConfig, srcSetFor, thumbFor } from '../config/siteConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -85,10 +85,10 @@ export function AboutSection() {
             {/* Architecture / Philosophy Detail */}
             <div className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm md:text-base font-sans-body text-[#FAF9F5]/70 font-light leading-relaxed max-w-lg">
               <p>
-                Set against the open skies of Gabol Abad Road near Bahria Town Karachi, HS Valley Farmhouse was conceived as an intimate, nature-embraced retreat where privacy and tranquility come first.
+                Set against the open skies of Gabol Abad Road near Bahria Town Karachi, HS Valley Farmhouse is a walled private estate built for one group at a time. Inside the gate: a covered swimming pool, wide lawns, timber gazebos, a floodlit sports court and a small resident zoo.
               </p>
               <p>
-                Whether hosting a memorable family gathering, an intimate milestone celebration, or seeking a quiet respite away from the bustle of the city, the grounds offer an uncluttered canvas for unforgettable memories.
+                Indoors there are three air-conditioned bedrooms, a majlis-style floor seating lounge and a games hall with billiards and carrom. Whether it is a family day-out, a birthday, or a quiet 24-hour stay, the whole compound is yours for the slot you book.
               </p>
             </div>
 
@@ -117,7 +117,7 @@ export function AboutSection() {
                     SECURITY
                   </span>
                   <span className="text-xs sm:text-sm font-medium text-[#FAF9F5]">
-                    Private Gated Compound
+                    Walled Compound • 24/7 Guarded
                   </span>
                 </div>
               </div>
@@ -142,16 +142,18 @@ export function AboutSection() {
               className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-[#FAF9F5]/10 shadow-2xl group"
             >
               <img
-                src={imagesConfig.exterior}
-                alt="HS Valley Farmhouse Exterior Grounds"
+                src={thumbFor(imagesConfig.exterior)}
+                srcSet={srcSetFor(imagesConfig.exterior)}
+                sizes="(max-width: 1024px) 100vw, 46vw"
+                alt="The paved arrival forecourt and planted borders at HS Valley Farmhouse"
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F0D]/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex items-center justify-between text-[11px] sm:text-xs font-mono text-[#FAF9F5]/80">
-                <span>SECLUDED SANCTUARY</span>
-                <span className="text-[#B99A5B]">ESTATE EXTERIOR</span>
+                <span>GATED &amp; PRIVATE</span>
+                <span className="text-[#B99A5B]">ARRIVAL FORECOURT</span>
               </div>
             </div>
           </div>

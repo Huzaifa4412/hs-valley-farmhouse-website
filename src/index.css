@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Design tokens & breakpoints (Tailwind v4 theme) */
+@theme {
+  --breakpoint-xs: 480px;
+}
+
 @layer base {
   :root {
     --color-primary-green: #14251D;
@@ -32,6 +37,22 @@
 
 .font-sans-body {
   font-family: 'Manrope', 'Inter', sans-serif;
+}
+
+/* Hidden scrollbar for filter rails and horizontal tracks */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Vertical "SCROLL" label in the hero */
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 /* Custom Scrollbar */
