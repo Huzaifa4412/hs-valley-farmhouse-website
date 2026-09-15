@@ -63,11 +63,11 @@ export function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full py-20 sm:py-28 md:py-40 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden"
+      className="relative w-full py-14 sm:py-20 md:py-24 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Asymmetrical Editorial Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-start">
           {/* Left Column: Big Serif Display */}
           <div ref={leftColRef} className="lg:col-span-6">
             <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
@@ -93,7 +93,7 @@ export function AboutSection() {
             </div>
 
             {/* Location Pill & Verification Tags */}
-            <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-[#FAF9F5]/10 flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-6">
+            <div className="mt-7 sm:mt-8 pt-6 sm:pt-7 border-t border-[#FAF9F5]/10 flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-6">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#B99A5B]/30 flex items-center justify-center bg-[#14251D] shrink-0">
                   <MapPin size={15} className="text-[#B99A5B]" />

@@ -63,7 +63,7 @@ export function LocationSection() {
     <section
       ref={sectionRef}
       id="location"
-      className="relative w-full py-20 sm:py-24 md:py-36 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden border-t border-[#14251D]"
+      className="relative w-full py-14 sm:py-18 md:py-24 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden border-t border-[#14251D]"
     >
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 -right-40 w-96 h-96 rounded-full bg-[#14251D]/40 blur-[130px] pointer-events-none" />
@@ -71,7 +71,7 @@ export function LocationSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 md:mb-16 gap-4 sm:gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-3">
               <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />

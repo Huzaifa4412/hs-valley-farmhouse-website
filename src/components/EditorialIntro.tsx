@@ -52,12 +52,12 @@ export function EditorialIntro() {
     <section
       ref={sectionRef}
       id="intro-statement"
-      className="relative w-full py-20 sm:py-28 md:py-44 bg-[#F3EFE5] text-[#14251D] overflow-hidden"
+      className="relative w-full py-16 sm:py-20 md:py-28 bg-[#F3EFE5] text-[#14251D] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <div className="flex flex-col items-start max-w-5xl">
           {/* Eyebrow marker */}
-          <div className="flex items-center gap-2.5 sm:gap-3 mb-6 sm:mb-8">
+          <div className="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6">
             <span className="w-8 sm:w-12 h-[1.5px] bg-[#B99A5B]" />
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono font-semibold">
               The Philosophy
@@ -83,7 +83,7 @@ export function EditorialIntro() {
             </p>
           </div>
 
-          <div className="overflow-hidden mt-3 sm:mt-4 md:mt-8">
+          <div className="overflow-hidden mt-2 sm:mt-3 md:mt-5">
             <p
               ref={textLine3Ref}
               className="text-3xl xs:text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-serif-editorial font-light leading-[1.0] sm:leading-[0.95] tracking-tight uppercase text-[#B99A5B]"
@@ -95,7 +95,7 @@ export function EditorialIntro() {
           {/* Subtext and details */}
           <div
             ref={subtextRef}
-            className="mt-10 sm:mt-12 md:mt-16 pt-6 sm:pt-8 border-t border-[#14251D]/15 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 w-full"
+            className="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-7 border-t border-[#14251D]/15 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 w-full"
           >
             <div className="md:col-span-4">
               <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#14251D]/60 block mb-1.5 sm:mb-2">

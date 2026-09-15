@@ -116,7 +116,7 @@ export function HorizontalScrollSection() {
       className="relative w-full bg-[#0B0F0D] overflow-hidden py-14 sm:py-16 md:py-0"
     >
       {/* Header Info */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-6 sm:pt-8 md:pt-12 pb-5 sm:pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-5 sm:pt-6 md:pt-8 pb-4 sm:pb-5 flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
         <div>
           <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono block mb-1.5 sm:mb-2">
             Visual Exploration

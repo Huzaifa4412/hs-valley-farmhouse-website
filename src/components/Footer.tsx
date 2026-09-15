@@ -21,10 +21,10 @@ export function Footer() {
   )}`;
 
   return (
-    <footer className="relative w-full bg-[#0B0F0D] text-[#FAF9F5] pt-16 sm:pt-24 pb-8 sm:pb-12 overflow-hidden border-t border-[#14251D]">
+    <footer className="relative w-full bg-[#0B0F0D] text-[#FAF9F5] pt-14 sm:pt-20 pb-8 sm:pb-10 overflow-hidden border-t border-[#14251D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Top Editorial Banner */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between pb-10 sm:pb-16 border-b border-[#FAF9F5]/10 gap-6 sm:gap-10">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between pb-8 sm:pb-12 border-b border-[#FAF9F5]/10 gap-6 sm:gap-10">
           <div>
             <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] block mb-2 sm:mb-3">
               Private Farmhouse & Sanctuary
@@ -48,7 +48,7 @@ export function Footer() {
         </div>
 
         {/* Middle Navigation & Contact Columns */}
-        <div className="py-10 sm:py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10">
+        <div className="py-9 sm:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10">
           {/* Column 1: Nav Links */}
           <div className="md:col-span-4">
             <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#B99A5B] block mb-4 sm:mb-6">
@@ -140,7 +140,7 @@ export function Footer() {
         </div>
 
         {/* Monumental Brand Typography */}
-        <div className="py-8 sm:py-12 border-t border-[#FAF9F5]/10 select-none overflow-hidden text-center">
+        <div className="py-6 sm:py-9 border-t border-[#FAF9F5]/10 select-none overflow-hidden text-center">
           <img
             src={imagesConfig.brandMarkGold}
             alt=""

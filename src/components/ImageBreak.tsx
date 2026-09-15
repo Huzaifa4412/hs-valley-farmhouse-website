@@ -53,7 +53,7 @@ export function ImageBreak() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[80vh] min-h-[500px] overflow-hidden flex items-center justify-center bg-[#0B0F0D]"
+      className="relative w-full h-[58vh] min-h-[360px] max-h-[620px] overflow-hidden flex items-center justify-center bg-[#0B0F0D]"
     >
       <img
         ref={imageRef}

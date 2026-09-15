@@ -153,7 +153,7 @@ export function ContactSection() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative w-full py-20 sm:py-24 md:py-36 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden"
+      className="relative w-full py-14 sm:py-18 md:py-24 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden"
     >
       {/* Background Ambience */}
       <div className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
@@ -169,7 +169,7 @@ export function ContactSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 md:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12">
           <div className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#14251D] border border-[#B99A5B]/30 mb-3 sm:mb-4 shadow-md">
             <Sparkles size={13} className="text-[#B99A5B]" />
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#FAF9F5] font-mono font-medium">

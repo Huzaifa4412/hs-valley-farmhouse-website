@@ -43,11 +43,11 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
     <section
       ref={sectionRef}
       id="experiences"
-      className="relative w-full py-20 sm:py-28 md:py-40 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden"
+      className="relative w-full py-14 sm:py-20 md:py-24 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Section Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4 sm:gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
               <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
@@ -67,7 +67,7 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
         {/* 2x2 Large Editorial Image Experience Grid */}
         <div
           ref={cardsContainerRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8"
         >
           {experiencesData.map((item) => (
             <div

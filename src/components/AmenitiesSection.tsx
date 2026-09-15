@@ -72,14 +72,14 @@ export function AmenitiesSection() {
     <section
       ref={sectionRef}
       id="facilities"
-      className="relative w-full py-20 sm:py-28 md:py-36 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden border-t border-[#14251D]"
+      className="relative w-full py-14 sm:py-20 md:py-24 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden border-t border-[#14251D]"
     >
       {/* Ambient glow */}
       <div className="absolute top-1/4 -left-40 w-96 h-96 rounded-full bg-[#14251D]/50 blur-[140px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 gap-4 sm:gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
               <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
@@ -100,7 +100,7 @@ export function AmenitiesSection() {
         {/* Facilities Grid */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5"
+          className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
         >
           {amenitiesData.map((item) => {
             const Icon = iconMap[item.icon] ?? Trees;
@@ -108,7 +108,7 @@ export function AmenitiesSection() {
             return (
               <div
                 key={item.id}
-                className="group rounded-2xl bg-[#14251D]/60 hover:bg-[#14251D] border border-[#FAF9F5]/10 hover:border-[#B99A5B]/50 p-5 sm:p-6 transition-all duration-300 backdrop-blur-xs"
+                className="group rounded-2xl bg-[#14251D]/60 hover:bg-[#14251D] border border-[#FAF9F5]/10 hover:border-[#B99A5B]/50 p-4 sm:p-5 lg:p-6 transition-all duration-300 backdrop-blur-xs"
               >
                 <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#B99A5B]/30 bg-[#0B0F0D]/70 flex items-center justify-center text-[#B99A5B] mb-4 group-hover:bg-[#B99A5B] group-hover:text-[#0B0F0D] transition-colors duration-300">
                   <Icon size={18} />
@@ -127,9 +127,9 @@ export function AmenitiesSection() {
         {/* Feature Band: The Mini Zoo */}
         <div
           ref={featureRef}
-          className="mt-10 sm:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-3xl overflow-hidden border border-[#B99A5B]/25 bg-[#14251D]/70 shadow-2xl"
+          className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-3xl overflow-hidden border border-[#B99A5B]/25 bg-[#14251D]/70 shadow-2xl"
         >
-          <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto lg:min-h-[340px] overflow-hidden group">
+          <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-[16/9] overflow-hidden group">
             <img
               src={thumbFor(imagesConfig.peacocksLawn)}
               srcSet={srcSetFor(imagesConfig.peacocksLawn)}

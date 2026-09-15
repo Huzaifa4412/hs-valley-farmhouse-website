@@ -52,13 +52,13 @@ export function CinematicStatement() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 sm:py-32 md:py-52 bg-[#0B0F0D] text-[#FAF9F5] flex flex-col items-center justify-center overflow-hidden border-y border-[#14251D]"
+      className="relative w-full py-16 sm:py-24 md:py-32 bg-[#0B0F0D] text-[#FAF9F5] flex flex-col items-center justify-center overflow-hidden border-y border-[#14251D]"
     >
       {/* Subtle radial ambient glow */}
       <div className="absolute w-[320px] sm:w-[600px] h-[320px] sm:h-[600px] rounded-full bg-[#14251D]/40 blur-[100px] sm:blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center space-y-3 sm:space-y-4 md:space-y-6">
-        <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[#B99A5B] font-mono mb-2 sm:mb-4">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center space-y-1 sm:space-y-2 md:space-y-3">
+        <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[#B99A5B] font-mono mb-1 sm:mb-2">
           The Sanctuary Creed
         </span>
 
@@ -86,7 +86,7 @@ export function CinematicStatement() {
           Escape.
         </h2>
 
-        <p className="mt-6 sm:mt-8 text-[11px] sm:text-xs md:text-sm font-sans-body tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[#FAF9F5]/60 max-w-md pt-2 sm:pt-4">
+        <p className="mt-5 sm:mt-6 text-[11px] sm:text-xs md:text-sm font-sans-body tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[#FAF9F5]/60 max-w-md pt-2 sm:pt-4">
           Bahria Town • Karachi
         </p>
       </div>

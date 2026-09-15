@@ -6,6 +6,14 @@ import { galleryItemsData, srcSetFor, thumbFor } from '../config/siteConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/** Cell proportions, so masonry columns pack without leaving holes. */
+const aspectClass: Record<string, string> = {
+  wide: 'aspect-[16/9]',
+  landscape: 'aspect-[4/3]',
+  portrait: 'aspect-[3/4]',
+  square: 'aspect-square',
+};
+
 interface GallerySectionProps {
   onOpenLightbox: (index: number) => void;
 }
@@ -60,11 +68,11 @@ export function GallerySection({ onOpenLightbox }: GallerySectionProps) {
     <section
       ref={sectionRef}
       id="gallery"
-      className="relative w-full py-20 sm:py-28 md:py-40 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden"
+      className="relative w-full py-14 sm:py-20 md:py-24 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Gallery Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 md:mb-16 gap-4 sm:gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8 md:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
               <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
@@ -97,29 +105,24 @@ export function GallerySection({ onOpenLightbox }: GallerySectionProps) {
           </div>
         </div>
 
-        {/* Asymmetrical / Masonry Inspired Grid */}
+        {/* Masonry columns: photographs keep their own proportions and the
+            layout closes up behind them, so no gaps are left in the grid. */}
         <div
           ref={galleryGridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6 md:gap-8"
+          className="columns-2 lg:columns-3 gap-2.5 sm:gap-4 md:gap-6"
         >
           {filteredItems.map((item, index) => {
-            // Calculate asymmetric spanning for editorial layout
             const originalIndex = galleryItemsData.findIndex((g) => g.id === item.id);
-            let colSpan = 'lg:col-span-4 aspect-[4/3]';
-            if (item.aspect === 'wide' || index === 0) {
-              colSpan = 'lg:col-span-8 aspect-[16/10] sm:aspect-[16/9]';
-            } else if (item.aspect === 'portrait') {
-              colSpan = 'lg:col-span-4 aspect-[4/5] sm:aspect-[3/4]';
-            } else if (item.aspect === 'square') {
-              colSpan = 'lg:col-span-4 aspect-square';
-            }
+            // Reserve each cell's height up front: the photographs are lazy-loaded,
+            // and without a known ratio the columns would collapse and reflow.
+            const ratio = aspectClass[item.aspect];
 
             return (
               <div
                 key={item.id}
                 data-cursor="view"
                 onClick={() => onOpenLightbox(originalIndex >= 0 ? originalIndex : index)}
-                className={`group relative rounded-2xl overflow-hidden bg-[#14251D]/40 border border-[#FAF9F5]/10 shadow-xl cursor-pointer ${colSpan}`}
+                className={`group relative mb-3.5 sm:mb-5 md:mb-6 break-inside-avoid rounded-2xl overflow-hidden bg-[#14251D]/40 border border-[#FAF9F5]/10 shadow-xl cursor-pointer ${ratio}`}
               >
                 {/* Image */}
                 <img
@@ -129,29 +132,29 @@ export function GallerySection({ onOpenLightbox }: GallerySectionProps) {
                   alt={item.caption}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-700 ease-out"
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-700 ease-out"
                 />
 
                 {/* Overlays */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F0D] via-[#0B0F0D]/45 to-[#0B0F0D]/5 opacity-85 group-hover:opacity-95 transition-opacity duration-300" />
 
                 {/* Content Badge */}
-                <div className="absolute inset-0 p-4 sm:p-6 flex flex-col justify-between">
+                <div className="absolute inset-0 p-2.5 sm:p-4 md:p-5 flex flex-col justify-between">
                   <div className="flex justify-end">
-                    <div className="sm:opacity-0 group-hover:opacity-100 transition-all duration-300 sm:transform sm:-translate-y-2 group-hover:translate-y-0 bg-[#B99A5B] text-[#0B0F0D] text-[9px] sm:text-[10px] uppercase font-mono tracking-[0.2em] font-semibold px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                    <div className="hidden sm:flex opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 bg-[#B99A5B] text-[#0B0F0D] text-[10px] uppercase font-mono tracking-[0.2em] font-semibold px-3 py-1 rounded-full items-center gap-1 shadow-lg">
                       <span>VIEW</span>
                       <ArrowUpRight size={11} />
                     </div>
                   </div>
 
                   <div>
-                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#B99A5B] block mb-1">
+                    <span className="text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.16em] sm:tracking-[0.25em] text-[#B99A5B] block mb-0.5 sm:mb-1">
                       {item.category}
                     </span>
-                    <h3 className="text-base sm:text-lg md:text-xl font-serif-editorial text-[#FAF9F5] font-light">
+                    <h3 className="text-[13px] sm:text-lg md:text-xl font-serif-editorial text-[#FAF9F5] font-light leading-tight">
                       {item.title}
                     </h3>
-                    <p className="text-xs font-sans-body text-[#FAF9F5]/70 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-0.5 sm:mt-1 line-clamp-1">
+                    <p className="hidden sm:block text-xs font-sans-body text-[#FAF9F5]/70 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-1 line-clamp-1">
                       {item.caption}
                     </p>
                   </div>
