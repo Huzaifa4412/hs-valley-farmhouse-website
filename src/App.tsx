@@ -81,6 +81,17 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#0B0F0D] text-[#FAF9F5] selection:bg-[#B99A5B]/30 selection:text-[#FAF9F5]">
+      {/* Keyboard users land here first */}
+      <a
+        href="#main-content"
+        className="skip-link rounded-full bg-[#B99A5B] text-[#0B0F0D] px-5 py-3 text-xs font-semibold uppercase tracking-[0.2em]"
+      >
+        Skip to content
+      </a>
+
+      {/* Film grain over the whole page */}
+      <div className="grain-overlay" aria-hidden="true" />
+
       {/* 1. Custom Lerp Cursor (Desktop Only) */}
       <CustomCursor />
 

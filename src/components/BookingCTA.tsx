@@ -112,7 +112,7 @@ export function BookingCTA({ onOpenInquiry }: BookingCTAProps) {
         </div>
 
         <p className="mt-8 text-xs font-mono text-[#FAF9F5]/50 uppercase tracking-widest">
-          Direct Line: {contactConfig.displayPhone}
+          Direct Lines: <span className="tabular-nums">{contactConfig.displayPhone}</span> &nbsp;•&nbsp; <span className="tabular-nums">{contactConfig.displayPhoneAlt}</span>
         </p>
       </div>
     </section>

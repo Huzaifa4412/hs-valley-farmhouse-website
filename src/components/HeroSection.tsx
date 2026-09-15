@@ -130,7 +130,7 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative w-full h-[100svh] min-h-[580px] sm:min-h-[640px] md:min-h-[700px] overflow-hidden flex items-end pb-12 sm:pb-16 md:pb-24 bg-[#0B0F0D]"
+      className="relative w-full h-[100svh] min-h-[580px] sm:min-h-[640px] md:min-h-[700px] overflow-hidden flex items-end pb-24 sm:pb-20 md:pb-24 bg-[#0B0F0D]"
     >
       {/* Background Image Container with Clip Path Reveal & Ken Burns */}
       <div

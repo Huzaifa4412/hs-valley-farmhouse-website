@@ -284,7 +284,7 @@ export function ContactSection() {
                       required
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      placeholder="e.g. Tariq Khan"
+                      placeholder="e.g. Ayesha Siddiqui"
                       className="w-full bg-[#0B0F0D]/80 border border-[#FAF9F5]/15 focus:border-[#B99A5B] rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-xs text-[#FAF9F5] placeholder-[#FAF9F5]/30 focus:outline-hidden transition-colors"
                     />
                   </div>
@@ -298,7 +298,7 @@ export function ContactSection() {
                       required
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
-                      placeholder="e.g. 0300 1234567"
+                      placeholder="e.g. 0321 4567890"
                       className="w-full bg-[#0B0F0D]/80 border border-[#FAF9F5]/15 focus:border-[#B99A5B] rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-xs text-[#FAF9F5] placeholder-[#FAF9F5]/30 focus:outline-hidden transition-colors"
                     />
                   </div>
@@ -463,7 +463,7 @@ export function ContactSection() {
                       <span className="text-xs font-medium text-[#FAF9F5] block">
                         WhatsApp Line
                       </span>
-                      <span className="text-[11px] sm:text-xs text-[#25D366] font-mono">
+                      <span className="text-[11px] sm:text-xs text-[#25D366] font-mono tabular-nums">
                         {contactConfig.displayPhone}
                       </span>
                     </div>
@@ -471,27 +471,33 @@ export function ContactSection() {
                   <ArrowUpRight size={15} className="text-[#FAF9F5]/50 group-hover:text-[#25D366] transition-colors" />
                 </a>
 
-                {/* Phone Call */}
-                <a
-                  href={`tel:${contactConfig.phone}`}
-                  data-cursor="explore"
-                  className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl bg-[#0B0F0D]/60 hover:bg-[#B99A5B]/10 border border-[#FAF9F5]/10 hover:border-[#B99A5B]/40 transition-all min-h-[44px]"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#B99A5B]/20 flex items-center justify-center text-[#B99A5B] shrink-0">
-                      <Phone size={17} />
+                {/* Phone Calls — both lines */}
+                {[
+                  { label: 'Direct Phone Call', tel: contactConfig.phone, display: contactConfig.displayPhone },
+                  { label: 'Alternate Line', tel: contactConfig.phoneAlt, display: contactConfig.displayPhoneAlt },
+                ].map((line) => (
+                  <a
+                    key={line.tel}
+                    href={`tel:${line.tel}`}
+                    data-cursor="explore"
+                    className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl bg-[#0B0F0D]/60 hover:bg-[#B99A5B]/10 border border-[#FAF9F5]/10 hover:border-[#B99A5B]/40 transition-all min-h-[44px]"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#B99A5B]/20 flex items-center justify-center text-[#B99A5B] shrink-0">
+                        <Phone size={17} />
+                      </div>
+                      <div>
+                        <span className="text-xs font-medium text-[#FAF9F5] block">
+                          {line.label}
+                        </span>
+                        <span className="text-[11px] sm:text-xs text-[#B99A5B] font-mono tabular-nums">
+                          {line.display}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-xs font-medium text-[#FAF9F5] block">
-                        Direct Phone Call
-                      </span>
-                      <span className="text-[11px] sm:text-xs text-[#B99A5B] font-mono">
-                        {contactConfig.displayPhone}
-                      </span>
-                    </div>
-                  </div>
-                  <ArrowUpRight size={15} className="text-[#FAF9F5]/50 group-hover:text-[#B99A5B] transition-colors" />
-                </a>
+                    <ArrowUpRight size={15} className="text-[#FAF9F5]/50 group-hover:text-[#B99A5B] transition-colors" />
+                  </a>
+                ))}
               </div>
 
               {/* Status Badge */}

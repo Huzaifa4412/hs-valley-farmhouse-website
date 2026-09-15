@@ -88,16 +88,21 @@ export function Footer() {
                   <ArrowUpRight size={13} />
                 </a>
               </li>
-              <li>
-                <a
-                  href={`tel:${contactConfig.phone}`}
-                  data-cursor="explore"
-                  className="flex items-center gap-2 text-xs sm:text-sm text-[#FAF9F5]/80 hover:text-[#B99A5B] transition-colors py-1"
-                >
-                  <Phone size={15} className="text-[#B99A5B] shrink-0" />
-                  <span>{contactConfig.displayPhone}</span>
-                </a>
-              </li>
+              {[
+                { tel: contactConfig.phone, display: contactConfig.displayPhone },
+                { tel: contactConfig.phoneAlt, display: contactConfig.displayPhoneAlt },
+              ].map((line) => (
+                <li key={line.tel}>
+                  <a
+                    href={`tel:${line.tel}`}
+                    data-cursor="explore"
+                    className="flex items-center gap-2 text-xs sm:text-sm text-[#FAF9F5]/80 hover:text-[#B99A5B] transition-colors py-1"
+                  >
+                    <Phone size={15} className="text-[#B99A5B] shrink-0" />
+                    <span className="tabular-nums">{line.display}</span>
+                  </a>
+                </li>
+              ))}
               <li>
                 <a
                   href="#contact"
@@ -140,10 +145,10 @@ export function Footer() {
             src={imagesConfig.brandMarkGold}
             alt=""
             aria-hidden="true"
-            width={96}
-            height={96}
+            width={826}
+            height={386}
             loading="lazy"
-            className="w-14 h-14 sm:w-20 sm:h-20 object-contain mx-auto mb-4 sm:mb-6 opacity-80"
+            className="w-24 sm:w-32 h-auto mx-auto mb-4 sm:mb-6 opacity-80"
           />
           <h2 className="text-[13vw] sm:text-[12vw] font-serif-editorial font-light text-[#FAF9F5]/10 tracking-[0.08em] sm:tracking-[0.1em] uppercase leading-none hover:text-[#B99A5B]/20 transition-colors duration-700">
             HS VALLEY

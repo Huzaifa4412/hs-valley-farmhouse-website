@@ -17,9 +17,11 @@ import {
  */
 
 export const contactConfig: ContactConfig = {
-  phone: "+923001234567",
-  displayPhone: "+92 300 123 4567",
-  whatsapp: "923001234567",
+  phone: "+923359590601",
+  displayPhone: "0335 959 0601",
+  phoneAlt: "+923102755957",
+  displayPhoneAlt: "0310 275 5957",
+  whatsapp: "923359590601",
   whatsappPrefilledMessage: "Assalamualaikum, I would like to inquire about booking HS Valley Farmhouse. Please share availability and pricing.",
   locationName: "HS Valley Farmhouse",
   addressLine1: "Village VIP Usmania Hotel, Gabol Abad Road",
@@ -403,7 +405,7 @@ export const faqData: FAQItem[] = [
   {
     id: "faq-2",
     question: "How can I check availability?",
-    answer: "You can check real-time date availability directly by clicking our WhatsApp link (+92 300 123 4567), calling our hospitality team, or submitting the reservation form above. Our team typically responds in under 15 minutes. We advise inquiring 1–2 weeks in advance for prime weekend and holiday dates.",
+    answer: "You can check real-time date availability on WhatsApp (0335 959 0601), by calling either of our lines, or submitting the reservation form above. Our team typically responds in under 15 minutes. We advise inquiring 1–2 weeks in advance for prime weekend and holiday dates.",
     category: "Booking",
   },
   {

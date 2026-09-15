@@ -4,7 +4,7 @@ export function CustomCursor() {
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorTextRef = useRef<HTMLSpanElement>(null);
   const [cursorText, setCursorText] = useState<string>('');
-  const [cursorMode, setCursorMode] = useState<'default' | 'view' | 'explore' | 'hidden'>('default');
+  const [cursorMode, setCursorMode] = useState<'default' | 'view' | 'explore' | 'hidden'>('hidden');
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
@@ -19,9 +19,19 @@ export function CustomCursor() {
     let cursorY = mouseY;
     let animationFrameId: number;
 
+    let hasMoved = false;
+
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+
+      // Park the cursor under the pointer on first move so it never flashes
+      // in the middle of the page before the visitor touches the mouse.
+      if (!hasMoved) {
+        hasMoved = true;
+        cursorX = mouseX;
+        cursorY = mouseY;
+      }
 
       // Detect hover target
       const target = e.target as HTMLElement | null;
@@ -47,7 +57,7 @@ export function CustomCursor() {
     };
 
     const onMouseEnter = () => {
-      setCursorMode('default');
+      if (hasMoved) setCursorMode('default');
     };
 
     window.addEventListener('mousemove', onMouseMove, { passive: true });

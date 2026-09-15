@@ -82,34 +82,34 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
           <a
             href="#"
             data-cursor="explore"
-            className="group flex items-center gap-2.5 sm:gap-3 focus:outline-hidden"
+            className="group flex items-center gap-2 sm:gap-3 min-w-0 focus:outline-hidden"
             aria-label="HS Valley Farmhouse — home"
           >
             <img
               src={imagesConfig.brandMarkGold}
               alt=""
               aria-hidden="true"
-              width={44}
-              height={44}
-              className="w-8 h-8 sm:w-10 sm:h-10 object-contain shrink-0 transition-transform duration-500 group-hover:scale-105"
+              width={826}
+              height={386}
+              className="w-10 sm:w-12 md:w-14 h-auto shrink-0 transition-transform duration-500 group-hover:scale-105"
             />
             <span className="flex flex-col">
-              <span className="font-serif-editorial text-base sm:text-lg md:text-xl font-light tracking-[0.2em] sm:tracking-[0.25em] text-[#FAF9F5] group-hover:text-[#B99A5B] transition-colors">
+              <span className="font-serif-editorial text-sm xs:text-base sm:text-lg md:text-xl font-light tracking-[0.14em] xs:tracking-[0.2em] sm:tracking-[0.25em] text-[#FAF9F5] group-hover:text-[#B99A5B] transition-colors whitespace-nowrap">
                 HS VALLEY
               </span>
-              <span className="text-[8px] sm:text-[9px] md:text-[10px] font-sans-body tracking-[0.35em] sm:tracking-[0.4em] text-[#FAF9F5]/70 uppercase font-light">
+              <span className="text-[7px] xs:text-[8px] sm:text-[9px] md:text-[10px] font-sans-body tracking-[0.3em] xs:tracking-[0.35em] sm:tracking-[0.4em] text-[#FAF9F5]/70 uppercase font-light whitespace-nowrap">
                 FARMHOUSE
               </span>
             </span>
           </a>
 
           {/* Right Action Items: MENU and BOOK NOW */}
-          <div className="flex items-center gap-2.5 sm:gap-4 md:gap-8">
+          <div className="flex items-center gap-1.5 xs:gap-2.5 sm:gap-4 md:gap-8 shrink-0">
             <button
               type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               data-cursor="explore"
-              className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs uppercase tracking-[0.18em] font-medium text-[#FAF9F5] hover:text-[#B99A5B] transition-colors py-2 px-2 min-h-[44px] min-w-[44px] justify-center focus:outline-hidden cursor-pointer"
+              className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs uppercase tracking-[0.18em] font-medium text-[#FAF9F5] hover:text-[#B99A5B] transition-colors py-2 px-1 xs:px-2 min-h-[44px] min-w-[44px] justify-center focus:outline-hidden cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               <span className="hidden xs:inline">MENU</span>
@@ -122,7 +122,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
               type="button"
               onClick={handleBookNowClick}
               data-cursor="explore"
-              className="group relative overflow-hidden px-4 sm:px-5 md:px-7 py-2 sm:py-2.5 min-h-[40px] sm:min-h-[44px] rounded-full border border-[#B99A5B]/50 bg-[#14251D]/80 hover:bg-[#B99A5B] text-[#FAF9F5] hover:text-[#0B0F0D] text-[11px] sm:text-xs uppercase tracking-[0.18em] sm:tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm focus:outline-hidden cursor-pointer flex items-center"
+              className="group relative overflow-hidden px-3.5 xs:px-4 sm:px-5 md:px-7 py-2 sm:py-2.5 min-h-[40px] sm:min-h-[44px] rounded-full border border-[#B99A5B]/50 bg-[#14251D]/80 hover:bg-[#B99A5B] text-[#FAF9F5] hover:text-[#0B0F0D] text-[10px] xs:text-[11px] sm:text-xs uppercase tracking-[0.12em] xs:tracking-[0.18em] sm:tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm focus:outline-hidden cursor-pointer flex items-center whitespace-nowrap"
             >
               <span className="relative z-10 flex items-center gap-1">
                 <span>BOOK NOW</span>
@@ -156,9 +156,13 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
                 <MapPin size={13} className="text-[#B99A5B] shrink-0" />
                 <span>Village VIP Usmania Hotel, Gabol Abad Road</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone size={13} className="text-[#B99A5B] shrink-0" />
-                <span>Direct Inquiries: {contactConfig.displayPhone}</span>
+              <div className="flex items-start gap-2">
+                <Phone size={13} className="text-[#B99A5B] shrink-0 mt-0.5" />
+                <span className="tabular-nums">
+                  {contactConfig.displayPhone}
+                  <span className="text-[#FAF9F5]/35"> / </span>
+                  {contactConfig.displayPhoneAlt}
+                </span>
               </div>
             </div>
           </div>

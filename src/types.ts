@@ -1,6 +1,10 @@
 export interface ContactConfig {
+  /** Primary line, also the WhatsApp number. */
   phone: string;
   displayPhone: string;
+  /** Second line, for when the primary is busy. */
+  phoneAlt: string;
+  displayPhoneAlt: string;
   whatsapp: string;
   whatsappPrefilledMessage: string;
   locationName: string;
