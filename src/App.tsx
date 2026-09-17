@@ -1,4 +1,6 @@
 import { useState, useCallback } from 'react';
+import { useParallax } from './hooks/useParallax';
+import { ScrollProgress } from './components/ScrollProgress';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { EditorialIntro } from './components/EditorialIntro';
@@ -20,6 +22,9 @@ import { galleryItemsData } from './config/siteConfig';
 import { LightboxState } from './types';
 
 export default function App() {
+  // Drives every [data-parallax] element from a single rAF loop
+  useParallax();
+
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
   const [lightboxState, setLightboxState] = useState<LightboxState>({
     isOpen: false,
@@ -84,6 +89,9 @@ export default function App() {
 
       {/* Film grain over the whole page */}
       <div className="grain-overlay" aria-hidden="true" />
+
+      {/* Hairline reading progress along the top edge */}
+      <ScrollProgress />
 
       {/* 3. Floating Minimal Luxury Navigation */}
       <Navbar onOpenInquiry={handleOpenInquiry} />

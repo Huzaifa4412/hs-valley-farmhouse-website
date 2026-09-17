@@ -40,10 +40,10 @@ export function FAQSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl font-serif-editorial font-light uppercase tracking-tight text-white leading-tight">
+          <h2 data-reveal className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl font-serif-editorial font-light uppercase tracking-tight text-white leading-tight">
             Essential <span className="italic text-[#B99A5B]">Information</span>
           </h2>
-          <p className="text-xs sm:text-sm md:text-base font-sans-body text-stone-300 font-light mt-2.5 sm:mt-3 max-w-lg mx-auto lg:mx-0">
+          <p data-reveal data-reveal-delay="120" className="text-xs sm:text-sm md:text-base font-sans-body text-stone-300 font-light mt-2.5 sm:mt-3 max-w-lg mx-auto lg:mx-0">
             Everything you need to know about reserving and experiencing HS Valley Farmhouse in Bahria Town Karachi.
           </p>
 
@@ -69,13 +69,14 @@ export function FAQSection() {
         </div>
 
         {/* FAQ Accordion List */}
-        <div data-reveal ref={listRef} className="lg:col-span-8 space-y-3 sm:space-y-3.5 w-full">
+        <div ref={listRef} data-reveal-stagger="70" className="lg:col-span-8 space-y-3 sm:space-y-3.5 w-full">
           {faqData.map((faq, idx) => {
             const isOpen = openId === faq.id;
 
             return (
               <div
                 key={faq.id}
+                data-reveal
                 className={`rounded-2xl transition-colors duration-300 border overflow-hidden backdrop-blur-md ${
                   isOpen
                     ? 'bg-[#14251D] border-[#B99A5B] shadow-2xl ring-1 ring-[#B99A5B]/30'
@@ -86,7 +87,7 @@ export function FAQSection() {
                   type="button"
                   onClick={() => toggleFAQ(faq.id)}
                   data-cursor="explore"
-                  className="w-full py-4 sm:py-5 md:py-6 px-4 sm:px-6 md:px-8 flex items-center justify-between text-left focus:outline-hidden group cursor-pointer"
+                  className="faq-trigger w-full py-4 sm:py-5 md:py-6 px-4 sm:px-6 md:px-8 flex items-center justify-between text-left focus:outline-hidden group cursor-pointer"
                   id={`question-${faq.id}`}
                   aria-controls={`answer-${faq.id}`}
                   aria-expanded={isOpen}
@@ -101,7 +102,7 @@ export function FAQSection() {
                   </div>
 
                   <div
-                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 border transition-colors ${
+                    className={`faq-icon w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 border ${
                       isOpen
                         ? 'bg-[#B99A5B] text-[#0B0F0D] border-[#B99A5B] shadow-md'
                         : 'bg-[#0B0F0D] text-[#FAF9F5] border-[#FAF9F5]/30 group-hover:border-[#B99A5B] group-hover:text-[#B99A5B]'
@@ -111,11 +112,15 @@ export function FAQSection() {
                   </div>
                 </button>
 
-                {isOpen && (
-                  <div id={`answer-${faq.id}`} role="region" aria-labelledby={`question-${faq.id}`} className="px-4 sm:px-6 md:px-8 pb-5 sm:pb-6 text-sm sm:text-base text-[#FAF9F5]/80 leading-relaxed whitespace-pre-line">
-                    {faq.answer}
+                {/* Stays mounted so opening and closing can both be animated;
+                    inert keeps a closed answer out of tab order and a11y trees. */}
+                <div className={`faq-panel ${isOpen ? 'is-open' : ''}`} inert={!isOpen}>
+                  <div className="faq-clip">
+                    <div id={`answer-${faq.id}`} role="region" aria-labelledby={`question-${faq.id}`} className="faq-panel-inner px-4 sm:px-6 md:px-8 pb-5 sm:pb-6 text-sm sm:text-base text-[#FAF9F5]/80 leading-relaxed whitespace-pre-line">
+                      {faq.answer}
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}

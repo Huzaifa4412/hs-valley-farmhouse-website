@@ -38,32 +38,33 @@ export function AmenitiesSection() {
       id="facilities"
       className="relative w-full py-14 sm:py-20 md:py-24 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden border-t border-[#14251D]"
     >
-      {/* Ambient glow */}
-      <div className="absolute top-1/4 -left-40 w-96 h-96 rounded-full bg-[#14251D]/50 blur-[140px] pointer-events-none" />
+      {/* Ambient glow, drifting slowly against the scroll */}
+      <div data-parallax="0.3" className="absolute top-1/4 -left-40 w-96 h-96 rounded-full bg-[#14251D]/50 blur-[140px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
-              <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
+            <div data-reveal="fade" className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+              <span className="rule-grow w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
               <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono">
                 What&apos;s On the Grounds
               </span>
             </div>
-            <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-serif-editorial font-light uppercase tracking-tight leading-tight">
+            <h2 data-reveal className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-serif-editorial font-light uppercase tracking-tight leading-tight">
               Estate <span className="italic text-[#B99A5B]">Facilities</span>
             </h2>
           </div>
 
-          <p className="max-w-md text-xs sm:text-sm font-sans-body text-[#FAF9F5]/70 font-light leading-relaxed">
+          <p data-reveal data-reveal-delay="120" className="max-w-md text-xs sm:text-sm font-sans-body text-[#FAF9F5]/70 font-light leading-relaxed">
             Every booking includes the entire compound: the pool, the lawns, the games hall, the courts and the animals. Nothing is shared with another group.
           </p>
         </div>
 
         {/* Facilities Grid */}
         <div
-          data-reveal ref={gridRef}
+          ref={gridRef}
+          data-reveal-stagger="80"
           className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
         >
           {amenitiesData.map((item) => {
@@ -72,9 +73,10 @@ export function AmenitiesSection() {
             return (
               <div
                 key={item.id}
-                className="group rounded-2xl bg-[#14251D]/60 hover:bg-[#14251D] border border-[#FAF9F5]/10 hover:border-[#B99A5B]/50 p-4 sm:p-5 lg:p-6 transition-all duration-300 backdrop-blur-xs"
+                data-reveal
+                className="group lift-card rounded-2xl bg-[#14251D]/60 hover:bg-[#14251D] border border-[#FAF9F5]/10 hover:border-[#B99A5B]/50 p-4 sm:p-5 lg:p-6 backdrop-blur-xs"
               >
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#B99A5B]/30 bg-[#0B0F0D]/70 flex items-center justify-center text-[#B99A5B] mb-4 group-hover:bg-[#B99A5B] group-hover:text-[#0B0F0D] transition-colors duration-300">
+                <div className="icon-pop w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#B99A5B]/30 bg-[#0B0F0D]/70 flex items-center justify-center text-[#B99A5B] mb-4 group-hover:bg-[#B99A5B] group-hover:text-[#0B0F0D]">
                   <Icon size={18} />
                 </div>
                 <h3 className="text-base sm:text-lg font-serif-editorial text-[#FAF9F5] font-normal mb-1.5">
@@ -90,7 +92,7 @@ export function AmenitiesSection() {
 
         {/* Feature Band: The Mini Zoo */}
         <div
-          data-reveal ref={featureRef}
+          data-reveal="scale" ref={featureRef}
           className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-3xl overflow-hidden border border-[#B99A5B]/25 bg-[#14251D]/70 shadow-2xl"
         >
           <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-[16/9] overflow-hidden group">

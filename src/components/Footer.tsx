@@ -1,7 +1,12 @@
+import { useRef } from 'react';
 import { ArrowUp, ArrowUpRight, MapPin, Phone, MessageSquare, Calendar } from 'lucide-react';
 import { contactConfig, imagesConfig } from '../config/siteConfig';
+import { useReveal } from '../hooks/useReveal';
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  useReveal(footerRef);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   };
@@ -21,15 +26,15 @@ export function Footer() {
   )}`;
 
   return (
-    <footer className="relative w-full bg-[#0B0F0D] text-[#FAF9F5] pt-14 sm:pt-20 pb-8 sm:pb-10 overflow-hidden border-t border-[#14251D]">
+    <footer ref={footerRef} className="relative w-full bg-[#0B0F0D] text-[#FAF9F5] pt-14 sm:pt-20 pb-8 sm:pb-10 overflow-hidden border-t border-[#14251D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Top Editorial Banner */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between pb-8 sm:pb-12 border-b border-[#FAF9F5]/10 gap-6 sm:gap-10">
           <div>
-            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] block mb-2 sm:mb-3">
+            <span data-reveal="fade" className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] block mb-2 sm:mb-3">
               Private Farmhouse & Sanctuary
             </span>
-            <p className="text-xl sm:text-3xl md:text-4xl font-serif-editorial text-[#FAF9F5] font-light max-w-xl leading-snug">
+            <p data-reveal className="text-xl sm:text-3xl md:text-4xl font-serif-editorial text-[#FAF9F5] font-light max-w-xl leading-snug">
               Karachi&apos;s secluded destination for intimate celebrations, retreats, and meaningful family escapes.
             </p>
           </div>
@@ -41,16 +46,16 @@ export function Footer() {
             className="group flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-mono text-[#FAF9F5]/70 hover:text-[#B99A5B] transition-colors self-start lg:self-end min-h-[44px] cursor-pointer"
           >
             <span>Back to top</span>
-            <div className="w-9 h-9 rounded-full border border-[#FAF9F5]/20 flex items-center justify-center group-hover:border-[#B99A5B] transition-colors">
-              <ArrowUp size={14} />
+            <div className="w-9 h-9 rounded-full border border-[#FAF9F5]/20 flex items-center justify-center group-hover:border-[#B99A5B] group-hover:bg-[#B99A5B]/10 transition-all duration-300 overflow-hidden">
+              <ArrowUp size={14} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
             </div>
           </button>
         </div>
 
         {/* Middle Navigation & Contact Columns */}
-        <div className="py-9 sm:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10">
+        <div data-reveal-stagger="110" className="py-9 sm:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10">
           {/* Column 1: Nav Links */}
-          <div className="md:col-span-4">
+          <div data-reveal className="md:col-span-4">
             <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#B99A5B] block mb-4 sm:mb-6">
               Navigation
             </span>
@@ -60,7 +65,7 @@ export function Footer() {
                   <a
                     href={link.href}
                     data-cursor="explore"
-                    className="text-xs sm:text-sm font-sans-body text-[#FAF9F5]/70 hover:text-[#B99A5B] transition-colors inline-block py-1"
+                    className="link-underline text-xs sm:text-sm font-sans-body text-[#FAF9F5]/70 hover:text-[#B99A5B] transition-colors inline-block py-1"
                   >
                     {link.label}
                   </a>
@@ -70,7 +75,7 @@ export function Footer() {
           </div>
 
           {/* Column 2: Contact Channels */}
-          <div className="md:col-span-4">
+          <div data-reveal className="md:col-span-4">
             <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#B99A5B] block mb-4 sm:mb-6">
               Contact & Inquiries
             </span>
@@ -117,7 +122,7 @@ export function Footer() {
           </div>
 
           {/* Column 3: Location */}
-          <div className="md:col-span-4">
+          <div data-reveal className="md:col-span-4">
             <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#B99A5B] block mb-4 sm:mb-6">
               Estate Location
             </span>
@@ -148,9 +153,10 @@ export function Footer() {
             width={826}
             height={386}
             loading="lazy"
+            data-reveal="scale"
             className="w-24 sm:w-32 h-auto mx-auto mb-4 sm:mb-6 opacity-80"
           />
-          <h2 className="text-[clamp(40px,11vw,144px)] font-serif-editorial font-light text-[#FAF9F5]/30 tracking-[0.06em] uppercase leading-none hover:text-[#B99A5B]/50 transition-colors duration-700">
+          <h2 data-reveal data-reveal-delay="120" className="text-[clamp(40px,11vw,144px)] font-serif-editorial font-light text-[#FAF9F5]/30 tracking-[0.06em] uppercase leading-none hover:text-[#B99A5B]/50 transition-colors duration-700">
             HS VALLEY
           </h2>
         </div>

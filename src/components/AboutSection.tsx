@@ -22,9 +22,9 @@ export function AboutSection() {
         {/* Asymmetrical Editorial Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-start">
           {/* Left Column: Big Serif Display */}
-          <div data-reveal ref={leftColRef} className="lg:col-span-6">
+          <div data-reveal="left" ref={leftColRef} className="lg:col-span-6">
             <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
-              <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
+              <span className="rule-grow w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
               <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono">
                 About the Estate
               </span>
@@ -78,7 +78,7 @@ export function AboutSection() {
           </div>
 
           {/* Right Column: Editorial Paragraph & Featured Architectural Imagery */}
-          <div data-reveal ref={rightColRef} className="lg:col-span-6 flex flex-col space-y-6 sm:space-y-8">
+          <div data-reveal="right" data-reveal-delay="140" ref={rightColRef} className="lg:col-span-6 flex flex-col space-y-6 sm:space-y-8">
             <div className="p-6 sm:p-8 md:p-10 rounded-2xl bg-[#14251D]/60 border border-[#B99A5B]/20 relative overflow-hidden backdrop-blur-xs">
               <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.28em] text-[#B99A5B] block mb-2.5 sm:mb-3">
                 The Mission
@@ -90,7 +90,7 @@ export function AboutSection() {
 
             {/* Asymmetrical Image Frame */}
             <div
-              data-reveal ref={imageFrameRef}
+              data-reveal="scale" data-reveal-delay="240" ref={imageFrameRef}
               data-cursor="view"
               className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-[#FAF9F5]/10 shadow-2xl group"
             >
