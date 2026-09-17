@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Menu, X, ArrowUpRight, MessageSquare, Phone, MapPin } from 'lucide-react';
 import { contactConfig, imagesConfig } from '../config/siteConfig';
+import { useModalFocus } from '../hooks/useModalFocus';
 
 interface NavbarProps {
   onOpenInquiry: () => void;
@@ -9,6 +10,9 @@ interface NavbarProps {
 export function Navbar({ onOpenInquiry }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigationRef = useRef<HTMLDivElement>(null);
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+  useModalFocus(navigationRef, isMenuOpen, closeMenu);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,21 +23,11 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
       }
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock scroll when mobile menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMenuOpen]);
 
   const navLinks = [
     { label: 'About Sanctuary', href: '#about' },
@@ -49,7 +43,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
     setIsMenuOpen(false);
     const el = document.querySelector(href);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
     }
   };
 
@@ -57,7 +51,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
     setIsMenuOpen(false);
     const contactEl = document.querySelector('#contact');
     if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth' });
+      contactEl.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
     } else {
       onOpenInquiry();
     }
@@ -68,7 +62,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
   )}`;
 
   return (
-    <>
+    <div ref={navigationRef}>
       <header
         id="main-navbar"
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
@@ -80,7 +74,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between">
           {/* Brand Monogram & Title */}
           <a
-            href="#"
+            href="#hero"
             data-cursor="explore"
             className="group flex items-center gap-2 sm:gap-3 min-w-0 focus:outline-hidden"
             aria-label="HS Valley Farmhouse — home"
@@ -91,7 +85,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
               aria-hidden="true"
               width={826}
               height={386}
-              className="w-10 sm:w-12 md:w-14 h-auto shrink-0 transition-transform duration-500 group-hover:scale-105"
+              className="hidden min-[360px]:block w-10 sm:w-12 md:w-14 h-auto shrink-0 transition-transform duration-500 group-hover:scale-105"
             />
             <span className="flex flex-col">
               <span className="font-serif-editorial text-sm xs:text-base sm:text-lg md:text-xl font-light tracking-[0.14em] xs:tracking-[0.2em] sm:tracking-[0.25em] text-[#FAF9F5] group-hover:text-[#B99A5B] transition-colors whitespace-nowrap">
@@ -111,6 +105,8 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
               data-cursor="explore"
               className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs uppercase tracking-[0.18em] font-medium text-[#FAF9F5] hover:text-[#B99A5B] transition-colors py-2 px-1 xs:px-2 min-h-[44px] min-w-[44px] justify-center focus:outline-hidden cursor-pointer"
               aria-label="Toggle Navigation Menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="navigation-menu"
             >
               <span className="hidden xs:inline">MENU</span>
               <div className="w-8 h-8 rounded-full border border-[#FAF9F5]/25 flex items-center justify-center group-hover:border-[#B99A5B] transition-colors bg-[#0B0F0D]/40">
@@ -122,7 +118,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
               type="button"
               onClick={handleBookNowClick}
               data-cursor="explore"
-              className="group relative overflow-hidden px-3.5 xs:px-4 sm:px-5 md:px-7 py-2 sm:py-2.5 min-h-[40px] sm:min-h-[44px] rounded-full border border-[#B99A5B]/50 bg-[#14251D]/80 hover:bg-[#B99A5B] text-[#FAF9F5] hover:text-[#0B0F0D] text-[10px] xs:text-[11px] sm:text-xs uppercase tracking-[0.12em] xs:tracking-[0.18em] sm:tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm focus:outline-hidden cursor-pointer flex items-center whitespace-nowrap"
+              className="group relative overflow-hidden px-3.5 xs:px-4 sm:px-5 md:px-7 py-2 sm:py-2.5 min-h-[44px] rounded-full border border-[#B99A5B]/50 bg-[#14251D]/80 hover:bg-[#B99A5B] text-[#FAF9F5] hover:text-[#0B0F0D] text-[10px] xs:text-[11px] sm:text-xs uppercase tracking-[0.12em] xs:tracking-[0.18em] sm:tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm focus:outline-hidden cursor-pointer flex items-center whitespace-nowrap"
             >
               <span className="relative z-10 flex items-center gap-1">
                 <span>BOOK NOW</span>
@@ -135,6 +131,8 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
 
       {/* Fullscreen Luxury Slide-Over Menu (Fully Responsive & Scrollable) */}
       <div
+        id="navigation-menu"
+        inert={!isMenuOpen}
         className={`fixed inset-0 z-40 bg-[#0B0F0D]/95 backdrop-blur-2xl transition-all duration-500 flex flex-col justify-between overflow-y-auto p-5 sm:p-8 md:p-16 ${
           isMenuOpen
             ? 'opacity-100 pointer-events-auto translate-y-0'
@@ -219,6 +217,6 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

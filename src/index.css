@@ -1,5 +1,44 @@
 @import "tailwindcss";
 
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+body { overflow-x: clip; }
+section[id] { scroll-margin-top: -40px; }
+#main-content { scroll-margin-top: 24px; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:disabled { cursor: default; opacity: 0.35; }
+.page-container { width: min(100%, 1280px); margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); }
+.section-space { padding-block: clamp(56px, 7vw, 100px); }
+.eyebrow { font-size: 11px; line-height: 1.6; text-transform: uppercase; letter-spacing: .2em; color: #B99A5B; font-weight: 600; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4.4vw, 64px); font-weight: 400; line-height: 1.06; letter-spacing: -.025em; }
+.hero-section { min-height: max(720px, 100svh); padding-top: 150px; padding-bottom: 84px; }
+.hero-title { font-size: clamp(42px, 5.7vw, 80px); }
+.round-control { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 1px solid #B99A5B66; border-radius: 50%; color: #F3EFE5; transition: background-color 200ms; }
+.round-control:hover:not(:disabled) { background: #B99A5B; color: #0B0F0D; }
+.property-track { position: relative; display: flex; gap: 24px; overflow-x: auto; padding-bottom: 16px; scroll-snap-type: x mandatory; scrollbar-color: #B99A5B #14251D; scrollbar-width: thin; }
+.property-slide { flex: 0 0 min(80%, 540px); scroll-snap-align: start; border: 1px solid #FAF9F51A; border-radius: 16px; overflow: hidden; background: #14251D; }
+.property-slide:last-child { margin-right: min(20%, 240px); }
+.gallery-filter { min-height: 44px; padding: 10px 16px; border-radius: 999px; border: 1px solid #FAF9F526; color: #F3EFE5; font-size: 12px; transition: background-color 200ms; }
+.gallery-filter:hover { border-color: #B99A5B; }
+.gallery-filter.is-active { background: #B99A5B; color: #0B0F0D; border-color: #B99A5B; }
+.booking-form input, .booking-form select, .booking-form textarea { color-scheme: dark; font-size: 16px; min-height: 48px; max-width: 100%; min-width: 0; }
+.booking-form label { line-height: 1.65; }
+.booking-primary { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 52px; border-radius: 12px; padding: 14px 18px; background: #B99A5B; color: #0B0F0D; font-size: 14px; font-weight: 600; text-align: center; transition: background-color 200ms; }
+.booking-primary:hover { background: #d0b67e; }
+.booking-primary svg { flex-shrink: 0; }
+.booking-summary { border-top: 1px solid #FAF9F51A; }
+.booking-summary > div { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; padding-block: 12px; border-bottom: 1px solid #FAF9F51A; font-size: 14px; }
+.booking-summary dt { color: #B99A5B; }
+.booking-summary dd { overflow-wrap: anywhere; white-space: pre-wrap; }
+@media (max-width: 639px) {
+  .hero-section { min-height: max(720px, 100svh); padding-top: 130px; padding-bottom: 72px; }
+  .property-track { gap: 16px; }
+  .property-slide { flex-basis: 88%; }
+  .property-slide:last-child { margin-right: 12%; }
+  .gallery-filter { padding-inline: 12px; }
+  footer { padding-bottom: 88px !important; }
+}
+
 /* Design tokens & breakpoints (Tailwind v4 theme) */
 @theme {
   --breakpoint-xs: 480px;

@@ -1,8 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
+import { useReveal } from '../hooks/useReveal';
 
 export function EditorialIntro() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -11,42 +9,7 @@ export function EditorialIntro() {
   const textLine3Ref = useRef<HTMLParagraphElement>(null);
   const subtextRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      const lines = [textLine1Ref.current, textLine2Ref.current, textLine3Ref.current];
-
-      gsap.from(lines, {
-        yPercent: 100,
-        opacity: 0,
-        stagger: 0.18,
-        duration: 1.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          end: 'bottom 60%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      gsap.from(subtextRef.current, {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 65%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  useReveal(sectionRef);
 
   return (
     <section
@@ -67,7 +30,7 @@ export function EditorialIntro() {
           {/* Huge Editorial Typography (Responsive wrap for small devices) */}
           <div className="overflow-hidden mb-1 sm:mb-2">
             <p
-              ref={textLine1Ref}
+              data-reveal ref={textLine1Ref}
               className="text-3xl xs:text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-serif-editorial font-light leading-[1.0] sm:leading-[0.95] tracking-tight uppercase"
             >
               MORE THAN
@@ -76,7 +39,7 @@ export function EditorialIntro() {
 
           <div className="overflow-hidden mb-1 sm:mb-2">
             <p
-              ref={textLine2Ref}
+              data-reveal ref={textLine2Ref}
               className="text-3xl xs:text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-serif-editorial font-light leading-[1.0] sm:leading-[0.95] tracking-tight uppercase italic text-[#14251D]/90"
             >
               A FARMHOUSE.
@@ -85,7 +48,7 @@ export function EditorialIntro() {
 
           <div className="overflow-hidden mt-2 sm:mt-3 md:mt-5">
             <p
-              ref={textLine3Ref}
+              data-reveal ref={textLine3Ref}
               className="text-3xl xs:text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-serif-editorial font-light leading-[1.0] sm:leading-[0.95] tracking-tight uppercase text-[#B99A5B]"
             >
               A PLACE FOR MEMORIES.
@@ -94,7 +57,7 @@ export function EditorialIntro() {
 
           {/* Subtext and details */}
           <div
-            ref={subtextRef}
+            data-reveal ref={subtextRef}
             className="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-7 border-t border-[#14251D]/15 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 w-full"
           >
             <div className="md:col-span-4">

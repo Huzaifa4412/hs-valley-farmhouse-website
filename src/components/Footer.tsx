@@ -3,7 +3,7 @@ import { contactConfig, imagesConfig } from '../config/siteConfig';
 
 export function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   };
 
   const navLinks = [
@@ -150,7 +150,7 @@ export function Footer() {
             loading="lazy"
             className="w-24 sm:w-32 h-auto mx-auto mb-4 sm:mb-6 opacity-80"
           />
-          <h2 className="text-[13vw] sm:text-[12vw] font-serif-editorial font-light text-[#FAF9F5]/10 tracking-[0.08em] sm:tracking-[0.1em] uppercase leading-none hover:text-[#B99A5B]/20 transition-colors duration-700">
+          <h2 className="text-[clamp(40px,11vw,144px)] font-serif-editorial font-light text-[#FAF9F5]/30 tracking-[0.06em] uppercase leading-none hover:text-[#B99A5B]/50 transition-colors duration-700">
             HS VALLEY
           </h2>
         </div>

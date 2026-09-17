@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { X, MessageSquare, Calendar, Users, Sparkles, Send } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus';
+import { X, MessageSquare, Calendar, Users, Sparkles } from 'lucide-react';
 import { contactConfig } from '../config/siteConfig';
 
 interface InquiryModalProps {
@@ -10,20 +11,10 @@ interface InquiryModalProps {
 export function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
   const [eventType, setEventType] = useState<string>('Family Gathering');
   const [preferredDate, setPreferredDate] = useState<string>('');
-  const [guestCount, setGuestCount] = useState<string>('20 - 40 Guests');
+  const [guestCount, setGuestCount] = useState<string>('20 - 30 Guests');
   const [note, setNote] = useState<string>('');
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModalFocus(dialogRef, isOpen, onClose);
 
   if (!isOpen) return null;
 
@@ -34,7 +25,7 @@ export function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
     'Weekend Day-Out',
   ];
 
-  const guestRanges = ['10 - 20 Guests', '20 - 40 Guests', '40 - 70 Guests', '70+ Guests'];
+  const guestRanges = ['10 - 20 Guests', '20 - 30 Guests', '30 - 40 Guests', '40 - 45 Guests', '45 - 50 Guests'];
 
   const handleWhatsAppSend = () => {
     let customMsg = `*Inquiry - HS Valley Farmhouse (Bahria Town Karachi)*\n\n`;
@@ -51,6 +42,7 @@ export function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-labelledby="inquiry-modal-title"
@@ -128,7 +120,7 @@ export function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
             <div>
               <label className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2 flex items-center gap-1.5">
                 <Users size={13} />
-                <span>Expected Guests</span>
+                <span>Expected Guests (Maximum 50)</span>
               </label>
               <select
                 value={guestCount}

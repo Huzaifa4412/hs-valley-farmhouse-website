@@ -1,10 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { MapPin, Shield } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { imagesConfig, srcSetFor, thumbFor } from '../config/siteConfig';
 
-gsap.registerPlugin(ScrollTrigger);
+import { useReveal } from '../hooks/useReveal';
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -12,52 +10,7 @@ export function AboutSection() {
   const rightColRef = useRef<HTMLDivElement>(null);
   const imageFrameRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from(leftColRef.current, {
-        y: 50,
-        opacity: 0,
-        duration: 1.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      gsap.from(rightColRef.current, {
-        y: 50,
-        opacity: 0,
-        duration: 1.1,
-        delay: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      gsap.from(imageFrameRef.current, {
-        clipPath: 'inset(15% 0% 15% 0%)',
-        scale: 0.95,
-        opacity: 0.8,
-        duration: 1.3,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: imageFrameRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  useReveal(sectionRef);
 
   return (
     <section
@@ -69,7 +22,7 @@ export function AboutSection() {
         {/* Asymmetrical Editorial Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-start">
           {/* Left Column: Big Serif Display */}
-          <div ref={leftColRef} className="lg:col-span-6">
+          <div data-reveal ref={leftColRef} className="lg:col-span-6">
             <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
               <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
               <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono">
@@ -125,7 +78,7 @@ export function AboutSection() {
           </div>
 
           {/* Right Column: Editorial Paragraph & Featured Architectural Imagery */}
-          <div ref={rightColRef} className="lg:col-span-6 flex flex-col space-y-6 sm:space-y-8">
+          <div data-reveal ref={rightColRef} className="lg:col-span-6 flex flex-col space-y-6 sm:space-y-8">
             <div className="p-6 sm:p-8 md:p-10 rounded-2xl bg-[#14251D]/60 border border-[#B99A5B]/20 relative overflow-hidden backdrop-blur-xs">
               <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.28em] text-[#B99A5B] block mb-2.5 sm:mb-3">
                 The Mission
@@ -137,7 +90,7 @@ export function AboutSection() {
 
             {/* Asymmetrical Image Frame */}
             <div
-              ref={imageFrameRef}
+              data-reveal ref={imageFrameRef}
               data-cursor="view"
               className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-[#FAF9F5]/10 shadow-2xl group"
             >

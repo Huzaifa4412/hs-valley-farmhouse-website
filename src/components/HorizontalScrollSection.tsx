@@ -1,15 +1,10 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, ChevronRight } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { imagesConfig, srcSetFor } from '../config/siteConfig';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export function HorizontalScrollSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrollWrapperRef = useRef<HTMLDivElement>(null);
-
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const horizontalSlides = [
     {
       id: 'slide-1',
@@ -69,130 +64,52 @@ export function HorizontalScrollSection() {
     },
   ];
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
 
-    if (prefersReducedMotion || isMobile) {
-      // On mobile or reduced motion, allow standard touch horizontal scrolling without pin
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      const scrollWrapper = scrollWrapperRef.current;
-      if (!scrollWrapper) return;
-
-      const totalScrollWidth = scrollWrapper.scrollWidth - window.innerWidth;
-
-      gsap.to(scrollWrapper, {
-        x: -totalScrollWidth,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          pin: true,
-          scrub: 1,
-          start: 'top top',
-          end: () => `+=${totalScrollWidth + 300}`,
-          invalidateOnRefresh: true,
-        },
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const handleBookingScroll = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const contactEl = document.querySelector('#contact');
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth' });
-    }
+  const move = (direction: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const next = Math.max(0, Math.min(horizontalSlides.length - 1, activeIndex + direction));
+    const card = track.children[next] as HTMLElement;
+    track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   };
 
   return (
-    <section
-      ref={containerRef}
-      id="property-journey"
-      className="relative w-full bg-[#0B0F0D] overflow-hidden py-14 sm:py-16 md:py-0"
-    >
-      {/* Header Info */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-5 sm:pt-6 md:pt-8 pb-4 sm:pb-5 flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
-        <div>
-          <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono block mb-1.5 sm:mb-2">
-            Visual Exploration
-          </span>
-          <h2 className="text-2xl xs:text-3xl md:text-5xl font-serif-editorial text-[#FAF9F5] font-light uppercase tracking-tight">
-            Journey Through <span className="italic text-[#B99A5B]">The Sanctuary</span>
-          </h2>
-        </div>
-        <div className="flex items-center gap-2 text-[11px] sm:text-xs font-mono text-[#FAF9F5]/60 uppercase tracking-widest">
-          <span className="hidden xs:inline">Swipe or scroll</span>
-          <span className="xs:hidden">Swipe across</span>
-          <ArrowRight size={13} className="text-[#B99A5B] animate-pulse" />
-        </div>
-      </div>
-
-      {/* Horizontal Slider Track (Touch-friendly on mobile with scroll-snap) */}
-      <div
-        ref={scrollWrapperRef}
-        className="flex gap-4 sm:gap-6 md:gap-10 px-4 sm:px-6 md:px-12 md:h-[80vh] items-center overflow-x-auto md:overflow-visible no-scrollbar pb-6 md:pb-0 snap-x snap-mandatory"
-      >
-        {horizontalSlides.map((slide) => (
-          <div
-            key={slide.id}
-            data-cursor="view"
-            className="flex-shrink-0 snap-center w-[84vw] xs:w-[78vw] sm:w-[60vw] md:w-[48vw] lg:w-[38vw] h-[48vh] sm:h-[55vh] md:h-[68vh] rounded-2xl overflow-hidden relative group border border-[#FAF9F5]/10 shadow-2xl bg-[#14251D]/40"
-          >
-            <img
-              src={slide.image}
-              srcSet={srcSetFor(slide.image)}
-              sizes="(max-width: 768px) 84vw, 42vw"
-              alt={slide.title}
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-            />
-            {/* Dark gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F0D]/90 via-[#0B0F0D]/30 to-transparent" />
-
-            {/* Slide Metadata */}
-            <div className="absolute inset-0 p-5 sm:p-6 md:p-8 flex flex-col justify-between">
-              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#B99A5B] bg-[#0B0F0D]/75 backdrop-blur-md px-3 py-1 rounded-full self-start border border-[#B99A5B]/30">
-                {slide.tag}
-              </span>
-
-              <div>
-                <span className="text-[11px] sm:text-xs font-mono text-[#FAF9F5]/70 block mb-1">
-                  {slide.subtitle}
-                </span>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-serif-editorial text-[#FAF9F5] font-light mb-1.5 sm:mb-2">
-                  {slide.title}
-                </h3>
-                <p className="text-xs md:text-sm font-sans-body text-[#FAF9F5]/80 line-clamp-2">
-                  {slide.description}
-                </p>
-              </div>
-            </div>
+    <section id="property-journey" className="section-space bg-[#14251D]/40 border-y border-[#B99A5B]/15">
+      <div className="page-container">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
+          <div className="max-w-2xl">
+            <p className="eyebrow mb-3">A look around</p>
+            <h2 className="section-title">Explore the <em className="text-[#B99A5B]">farmhouse.</em></h2>
+            <p className="mt-4 text-sm text-[#FAF9F5]/70">From a morning by the pool to an evening on the lawn. Swipe through the grounds.</p>
           </div>
-        ))}
-
-        {/* Closing Slide Prompt */}
-        <div className="flex-shrink-0 snap-center w-[75vw] xs:w-[65vw] sm:w-[40vw] md:w-[28vw] h-[48vh] sm:h-[55vh] md:h-[68vh] rounded-2xl border border-[#B99A5B]/30 bg-[#14251D]/80 flex flex-col items-center justify-center p-6 sm:p-8 text-center">
-          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.3em] text-[#B99A5B] block mb-3 sm:mb-4">
-            Private Booking
-          </span>
-          <p className="text-xl sm:text-2xl font-serif-editorial text-[#FAF9F5] mb-5 sm:mb-6">
-            Reserve Your Desired Date Today
-          </p>
-          <a
-            href="#contact"
-            onClick={handleBookingScroll}
-            data-cursor="explore"
-            className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 min-h-[44px] rounded-full bg-[#B99A5B] text-[#0B0F0D] text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#FAF9F5] transition-colors"
-          >
-            <span>Inquire Now</span>
-            <ChevronRight size={14} />
-          </a>
+          <div className="flex items-center gap-3 shrink-0">
+            <span className="text-xs font-mono text-[#B99A5B] mr-2" aria-live="polite">{String(activeIndex + 1).padStart(2, '0')} / 07</span>
+            <button type="button" className="round-control" aria-label="Previous property photo" onClick={() => move(-1)} disabled={activeIndex === 0}><ArrowLeft size={18} /></button>
+            <button type="button" className="round-control" aria-label="Next property photo" onClick={() => move(1)} disabled={activeIndex === horizontalSlides.length - 1}><ArrowRight size={18} /></button>
+          </div>
+        </div>
+        <div ref={trackRef} className="property-track" role="region" aria-label="Farmhouse photo tour" tabIndex={0}
+          onScroll={() => {
+            const track = trackRef.current;
+            if (!track) return;
+            const cards = Array.from(track.children) as HTMLElement[];
+            const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+            setActiveIndex(atEnd ? cards.length - 1 : cards.reduce((best, card, i) => Math.abs(card.offsetLeft - track.offsetLeft - track.scrollLeft) < Math.abs(cards[best].offsetLeft - track.offsetLeft - track.scrollLeft) ? i : best, 0));
+          }}>
+          {horizontalSlides.map(slide => (
+            <article key={slide.id} className="property-slide">
+              <img src={slide.image} srcSet={srcSetFor(slide.image)} sizes="(max-width: 640px) 85vw, (max-width: 1024px) 65vw, 550px" alt={slide.title} loading="lazy" decoding="async" className="w-full aspect-[4/3] object-cover" />
+              <div className="p-5 sm:p-6">
+                <p className="eyebrow text-[10px] mb-3">{slide.tag}</p>
+                <h3 className="font-serif-editorial text-2xl sm:text-3xl mb-2">{slide.title}</h3>
+                <p className="text-sm text-[#FAF9F5]/70 leading-relaxed">{slide.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-4 mt-6 text-sm">
+          <p className="text-[#FAF9F5]/60">One booking. The whole place to yourselves.</p>
+          <a href="#contact" className="inline-flex items-center gap-2 min-h-11 text-[#B99A5B] hover:text-[#FAF9F5]">Plan your visit <ArrowUpRight size={17} /></a>
         </div>
       </div>
     </section>

@@ -17,11 +17,11 @@ import {
  */
 
 export const contactConfig: ContactConfig = {
-  phone: "+923359590601",
-  displayPhone: "0335 959 0601",
-  phoneAlt: "+923102755957",
-  displayPhoneAlt: "0310 275 5957",
-  whatsapp: "923359590601",
+  phone: "+923102755957",
+  displayPhone: "0310 275 5957",
+  phoneAlt: "+923359590601",
+  displayPhoneAlt: "0335 959 0601",
+  whatsapp: "923102755957",
   whatsappPrefilledMessage: "Assalamualaikum, I would like to inquire about booking HS Valley Farmhouse. Please share availability and pricing.",
   locationName: "HS Valley Farmhouse",
   addressLine1: "Village VIP Usmania Hotel, Gabol Abad Road",
@@ -100,8 +100,8 @@ export const imagesConfig: ImagesConfig = {
   partridge: photo("partridge"),
 
   // Section roles
-  hero: photo("estate-night"),
-  heroMobile: photo("colonnade-sunset"),
+  hero: photo("hero-entrance"),
+  heroMobile: photo("hero-entrance"),
   exterior: photo("entrance-day"),
   pool: photo("covered-pool-day"),
   garden: photo("gazebos-lawn"),
@@ -405,7 +405,7 @@ export const faqData: FAQItem[] = [
   {
     id: "faq-2",
     question: "How can I check availability?",
-    answer: "You can check real-time date availability on WhatsApp (0335 959 0601), by calling either of our lines, or submitting the reservation form above. Our team typically responds in under 15 minutes. We advise inquiring 1–2 weeks in advance for prime weekend and holiday dates.",
+    answer: `You can check real-time date availability on WhatsApp (${contactConfig.displayPhone}), by calling either of our lines, or submitting the reservation form above. Our team typically responds in under 15 minutes. We advise inquiring 1–2 weeks in advance for prime weekend and holiday dates.`,
     category: "Booking",
   },
   {
@@ -453,7 +453,7 @@ export const faqData: FAQItem[] = [
   {
     id: "faq-10",
     question: "What are the booking timings?",
-    answer: "Standard booking slots include:\n• Day Slot: 10:00 AM – 6:00 PM\n• Night Slot: 8:00 PM – 4:00 AM\n• Full 24-Hour Stay: Flexible check-in (e.g., 12:00 PM to 10:00 AM next morning).\nCustom timing arrangements can also be scheduled based on date availability.",
+    answer: "Standard booking slots include:\n• Day Slot: 8:00 AM – 6:00 PM\n• Night Slot: 8:00 PM – 6:00 AM\n• Full 24-Hour Stay: Flexible check-in (e.g., 12:00 PM to 10:00 AM next morning).\nCustom timing arrangements can also be scheduled based on date availability.",
     category: "Timings",
   },
 ];

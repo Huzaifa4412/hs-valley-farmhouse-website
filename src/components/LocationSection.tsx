@@ -1,62 +1,34 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { MapPin, Navigation, Car, Compass, Copy, Check, ShieldCheck } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { contactConfig } from '../config/siteConfig';
 
-gsap.registerPlugin(ScrollTrigger);
+import { useReveal } from '../hooks/useReveal';
 
 export function LocationSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const infoCardRef = useRef<HTMLDivElement>(null);
   const mapFrameRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState('');
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+  useReveal(sectionRef);
 
-    const ctx = gsap.context(() => {
-      gsap.from(infoCardRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      gsap.from(mapFrameRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        delay: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const handleCopyAddress = () => {
+  const handleCopyAddress = async () => {
     const fullAddress = `${contactConfig.locationName}, ${contactConfig.addressLine1}, ${contactConfig.addressLine2}, ${contactConfig.city}, ${contactConfig.country}`;
-    navigator.clipboard.writeText(fullAddress);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    try {
+      await navigator.clipboard.writeText(fullAddress);
+      setCopyError('');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      setCopyError('Could not copy. You can select the address above or open directions.');
+    }
   };
 
   const travelTimes = [
-    { label: 'Bahria Town Main Gate', time: '15 - 20 mins' },
-    { label: 'Karachi Toll Plaza (M-9)', time: '25 - 30 mins' },
-    { label: 'Jinnah Int. Airport', time: '40 - 45 mins' },
+    { label: 'Bahria Town Main Gate', time: '3 - 5 mins' },
+    { label: 'Karachi Toll Plaza (M-9)', time: '8 - 10 mins' },
+    { label: 'Jinnah Int. Airport', time: '25 - 30 mins' },
   ];
 
   return (
@@ -93,7 +65,7 @@ export function LocationSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-stretch">
           {/* Left Details Card */}
           <div
-            ref={infoCardRef}
+            data-reveal ref={infoCardRef}
             className="lg:col-span-5 rounded-3xl bg-[#14251D]/70 border border-[#B99A5B]/25 p-5 sm:p-7 md:p-9 flex flex-col justify-between backdrop-blur-md shadow-2xl"
           >
             <div>
@@ -126,10 +98,10 @@ export function LocationSection() {
                   {travelTimes.map((item) => (
                     <div
                       key={item.label}
-                      className="flex items-center justify-between text-xs py-2 px-3 sm:px-3.5 rounded-xl bg-[#0B0F0D]/50 border border-[#FAF9F5]/5"
+                      className="flex items-center justify-between gap-3 text-xs py-3 px-3 sm:px-3.5 rounded-xl bg-[#0B0F0D]/50 border border-[#FAF9F5]/5"
                     >
                       <span className="text-[#FAF9F5]/80 font-sans-body">{item.label}</span>
-                      <span className="font-mono text-[#B99A5B] font-medium">{item.time}</span>
+                      <span className="font-mono text-[#B99A5B] font-medium whitespace-nowrap shrink-0">{item.time}</span>
                     </div>
                   ))}
                 </div>
@@ -149,7 +121,7 @@ export function LocationSection() {
             </div>
 
             {/* CTAs */}
-            <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#FAF9F5]/10 flex flex-col xs:flex-row gap-3">
+            <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#FAF9F5]/10 flex flex-col gap-3">
               <a
                 href={contactConfig.googleMapsUrl}
                 target="_blank"
@@ -158,7 +130,7 @@ export function LocationSection() {
                 className="flex-1 py-3.5 px-5 min-h-[44px] rounded-full bg-[#B99A5B] hover:bg-[#a6884e] text-[#0B0F0D] text-xs uppercase tracking-[0.18em] sm:tracking-[0.2em] font-semibold flex items-center justify-center gap-2 transition-all shadow-lg"
               >
                 <Navigation size={14} />
-                <span>Open in Google Maps</span>
+                <span>Open directions</span>
               </a>
 
               <button
@@ -171,11 +143,12 @@ export function LocationSection() {
                 <span>{copied ? 'Copied' : 'Copy Address'}</span>
               </button>
             </div>
+            {copyError && <p role="status" className="text-xs text-amber-200 mt-3">{copyError}</p>}
           </div>
 
           {/* Right Live Map Embed Container */}
           <div
-            ref={mapFrameRef}
+            data-reveal ref={mapFrameRef}
             className="lg:col-span-7 rounded-3xl overflow-hidden border border-[#B99A5B]/30 shadow-2xl bg-[#14251D] relative min-h-[320px] sm:min-h-[400px] lg:min-h-[500px]"
           >
             <iframe
@@ -187,18 +160,18 @@ export function LocationSection() {
               allowFullScreen={true}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="w-full h-full grayscale-25 contrast-110"
+              className="absolute inset-0 w-full h-full grayscale-25 contrast-110"
             />
 
             {/* Overlay Map Badge on Mobile/Desktop */}
             <div className="absolute top-4 left-4 right-4 sm:right-auto bg-[#0B0F0D]/90 backdrop-blur-md border border-[#B99A5B]/40 py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-2xl shadow-xl flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full bg-[#25D366] animate-ping" />
-              <div>
+              <MapPin size={18} className="text-[#B99A5B] shrink-0" />
+              <div className="min-w-0">
                 <span className="text-xs font-serif-editorial text-[#FAF9F5] block font-medium">
                   HS Valley Farmhouse
                 </span>
                 <span className="text-[10px] text-[#B99A5B] font-mono block">
-                  Bahria Town Karachi • Verified Location
+                  Gabol Abad Road · Bahria Town
                 </span>
               </div>
             </div>

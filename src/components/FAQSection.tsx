@@ -1,11 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Plus, Minus, MessageSquare, Sparkles } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { faqData, contactConfig } from '../config/siteConfig';
 
-gsap.registerPlugin(ScrollTrigger);
+import { useReveal } from '../hooks/useReveal';
 
 export function FAQSection() {
   // First item open by default for immediate context
@@ -13,33 +10,7 @@ export function FAQSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      if (listRef.current?.children) {
-        gsap.fromTo(
-          listRef.current.children,
-          { y: 25, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            stagger: 0.08,
-            duration: 0.7,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 80%',
-              once: true,
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  useReveal(sectionRef);
 
   const toggleFAQ = (id: string) => {
     setOpenId(openId === id ? null : id);
@@ -69,7 +40,7 @@ export function FAQSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-serif-editorial font-light uppercase tracking-tight text-white leading-tight">
+          <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl font-serif-editorial font-light uppercase tracking-tight text-white leading-tight">
             Essential <span className="italic text-[#B99A5B]">Information</span>
           </h2>
           <p className="text-xs sm:text-sm md:text-base font-sans-body text-stone-300 font-light mt-2.5 sm:mt-3 max-w-lg mx-auto lg:mx-0">
@@ -98,15 +69,13 @@ export function FAQSection() {
         </div>
 
         {/* FAQ Accordion List */}
-        <div ref={listRef} className="lg:col-span-8 space-y-3 sm:space-y-3.5 w-full">
+        <div data-reveal ref={listRef} className="lg:col-span-8 space-y-3 sm:space-y-3.5 w-full">
           {faqData.map((faq, idx) => {
             const isOpen = openId === faq.id;
 
             return (
-              <motion.div
+              <div
                 key={faq.id}
-                layout
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className={`rounded-2xl transition-colors duration-300 border overflow-hidden backdrop-blur-md ${
                   isOpen
                     ? 'bg-[#14251D] border-[#B99A5B] shadow-2xl ring-1 ring-[#B99A5B]/30'
@@ -118,6 +87,8 @@ export function FAQSection() {
                   onClick={() => toggleFAQ(faq.id)}
                   data-cursor="explore"
                   className="w-full py-4 sm:py-5 md:py-6 px-4 sm:px-6 md:px-8 flex items-center justify-between text-left focus:outline-hidden group cursor-pointer"
+                  id={`question-${faq.id}`}
+                  aria-controls={`answer-${faq.id}`}
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-center gap-3 sm:gap-4 pr-3 sm:pr-4">
@@ -129,9 +100,7 @@ export function FAQSection() {
                     </span>
                   </div>
 
-                  <motion.div
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  <div
                     className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 border transition-colors ${
                       isOpen
                         ? 'bg-[#B99A5B] text-[#0B0F0D] border-[#B99A5B] shadow-md'
@@ -139,47 +108,15 @@ export function FAQSection() {
                     }`}
                   >
                     {isOpen ? <Minus size={15} /> : <Plus size={15} />}
-                  </motion.div>
+                  </div>
                 </button>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key={`content-${faq.id}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{
-                        height: 'auto',
-                        opacity: 1,
-                        transition: {
-                          height: { duration: 0.38, ease: [0.16, 1, 0.3, 1] },
-                          opacity: { duration: 0.28, delay: 0.08, ease: 'easeOut' },
-                        },
-                      }}
-                      exit={{
-                        height: 0,
-                        opacity: 0,
-                        transition: {
-                          height: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
-                          opacity: { duration: 0.2, ease: 'easeIn' },
-                        },
-                      }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-4 sm:px-6 md:px-8 pb-4 sm:pb-6 pt-1">
-                        <motion.div
-                          initial={{ y: -6, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          exit={{ y: -6, opacity: 0 }}
-                          transition={{ duration: 0.25 }}
-                          className="p-3.5 sm:p-5 rounded-xl bg-[#0B0F0D]/80 border border-[#FAF9F5]/15 text-xs sm:text-sm md:text-base font-sans-body text-stone-200 font-normal leading-relaxed whitespace-pre-line shadow-inner"
-                        >
-                          {faq.answer}
-                        </motion.div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                {isOpen && (
+                  <div id={`answer-${faq.id}`} role="region" aria-labelledby={`question-${faq.id}`} className="px-4 sm:px-6 md:px-8 pb-5 sm:pb-6 text-sm sm:text-base text-[#FAF9F5]/80 leading-relaxed whitespace-pre-line">
+                    {faq.answer}
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>

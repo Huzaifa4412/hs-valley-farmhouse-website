@@ -1,7 +1,4 @@
 import { useState, useCallback } from 'react';
-import { useLenis } from './hooks/useLenis';
-import { CustomCursor } from './components/CustomCursor';
-import { Preloader } from './components/Preloader';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { EditorialIntro } from './components/EditorialIntro';
@@ -23,10 +20,6 @@ import { galleryItemsData } from './config/siteConfig';
 import { LightboxState } from './types';
 
 export default function App() {
-  // Initialize Lenis smooth scroll synchronized with GSAP ScrollTrigger
-  useLenis();
-
-  const [preloaderComplete, setPreloaderComplete] = useState(false);
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
   const [lightboxState, setLightboxState] = useState<LightboxState>({
     isOpen: false,
@@ -37,7 +30,7 @@ export default function App() {
     // Scroll directly to on-page Contact Section
     const contactEl = document.querySelector('#contact');
     if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth' });
+      contactEl.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
     } else {
       setIsInquiryModalOpen(true);
     }
@@ -91,14 +84,6 @@ export default function App() {
 
       {/* Film grain over the whole page */}
       <div className="grain-overlay" aria-hidden="true" />
-
-      {/* 1. Custom Lerp Cursor (Desktop Only) */}
-      <CustomCursor />
-
-      {/* 2. Loading Experience with GSAP Brand Sequence */}
-      {!preloaderComplete && (
-        <Preloader onComplete={() => setPreloaderComplete(true)} />
-      )}
 
       {/* 3. Floating Minimal Luxury Navigation */}
       <Navbar onOpenInquiry={handleOpenInquiry} />

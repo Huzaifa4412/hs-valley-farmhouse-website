@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import {
   Waves,
   ToyBrick,
@@ -10,11 +10,9 @@ import {
   ShieldCheck,
   type LucideIcon,
 } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { amenitiesData, imagesConfig, srcSetFor, thumbFor } from '../config/siteConfig';
 
-gsap.registerPlugin(ScrollTrigger);
+import { useReveal } from '../hooks/useReveal';
 
 const iconMap: Record<string, LucideIcon> = {
   waves: Waves,
@@ -32,41 +30,7 @@ export function AmenitiesSection() {
   const gridRef = useRef<HTMLDivElement>(null);
   const featureRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      if (gridRef.current?.children) {
-        gsap.from(gridRef.current.children, {
-          y: 34,
-          opacity: 0,
-          stagger: 0.07,
-          duration: 0.75,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 78%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      }
-
-      gsap.from(featureRef.current, {
-        clipPath: 'inset(12% 0% 12% 0%)',
-        opacity: 0.6,
-        duration: 1.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: featureRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  useReveal(sectionRef);
 
   return (
     <section
@@ -99,7 +63,7 @@ export function AmenitiesSection() {
 
         {/* Facilities Grid */}
         <div
-          ref={gridRef}
+          data-reveal ref={gridRef}
           className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
         >
           {amenitiesData.map((item) => {
@@ -126,7 +90,7 @@ export function AmenitiesSection() {
 
         {/* Feature Band: The Mini Zoo */}
         <div
-          ref={featureRef}
+          data-reveal ref={featureRef}
           className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-3xl overflow-hidden border border-[#B99A5B]/25 bg-[#14251D]/70 shadow-2xl"
         >
           <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-[16/9] overflow-hidden group">

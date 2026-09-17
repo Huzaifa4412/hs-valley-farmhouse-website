@@ -1,4 +1,5 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GalleryItem } from '../types';
 import { thumbFor } from '../config/siteConfig';
@@ -23,12 +24,13 @@ export function ImageLightbox({
   onSelectIndex,
 }: ImageLightboxProps) {
   const currentItem = items[currentIndex];
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModalFocus(dialogRef, isOpen, onClose);
 
   // Keyboard navigation
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!isOpen) return;
-      if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft') onPrev();
       if (e.key === 'ArrowRight') onNext();
     },
@@ -37,14 +39,10 @@ export function ImageLightbox({
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = '';
     }
 
     return () => {
-      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, handleKeyDown]);
@@ -57,6 +55,7 @@ export function ImageLightbox({
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label="Image Lightbox Viewer"
@@ -78,7 +77,7 @@ export function ImageLightbox({
           type="button"
           onClick={onClose}
           data-cursor="explore"
-          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#FAF9F5]/20 flex items-center justify-center hover:bg-[#FAF9F5] hover:text-[#0B0F0D] transition-all duration-300 focus:outline-hidden cursor-pointer"
+          className="w-11 h-11 shrink-0 rounded-full border border-[#FAF9F5]/20 flex items-center justify-center hover:bg-[#FAF9F5] hover:text-[#0B0F0D] transition-all duration-300 focus:outline-hidden cursor-pointer"
           aria-label="Close Lightbox"
         >
           <X size={16} />

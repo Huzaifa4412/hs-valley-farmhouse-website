@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import {
   MessageSquare,
   Phone,
@@ -6,17 +6,14 @@ import {
   Users,
   Clock,
   Sparkles,
-  CheckCircle2,
   ArrowUpRight,
   Shield,
   Send,
-  RefreshCw,
 } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { contactConfig, imagesConfig } from '../config/siteConfig';
 
-gsap.registerPlugin(ScrollTrigger);
+import { useReveal } from '../hooks/useReveal';
+import { buildBookingUrl, localDateToday } from '../utils/booking';
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -28,49 +25,15 @@ export function ContactSection() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [eventType, setEventType] = useState('Family Gathering');
   const [preferredDate, setPreferredDate] = useState('');
-  const [guestCount, setGuestCount] = useState('20 - 40 Guests');
-  const [slotTime, setSlotTime] = useState('Day Slot (10:00 AM – 6:00 PM)');
+  const [guestCount, setGuestCount] = useState('20 - 30 Guests');
+  const [slotTime, setSlotTime] = useState('Day Slot (8:00 AM – 6:00 PM)');
   const [message, setMessage] = useState('');
 
   // UI status
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [referenceId, setReferenceId] = useState('');
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from(formCardRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      gsap.from(infoSidebarRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1.1,
-        delay: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  useReveal(sectionRef);
 
   const eventTypes = [
     'Family Gathering',
@@ -82,67 +45,37 @@ export function ContactSection() {
 
   const guestOptions = [
     '10 - 20 Guests',
-    '20 - 40 Guests',
-    '40 - 70 Guests',
-    '70+ Guests',
+    '20 - 30 Guests',
+    '30 - 40 Guests',
+    '40 - 45 Guests',
+    '45 - 50 Guests',
   ];
 
   const timeSlots = [
-    'Day Slot (10:00 AM – 6:00 PM)',
-    'Night Slot (8:00 PM – 4:00 AM)',
+    'Day Slot (8:00 AM – 6:00 PM)',
+    'Night Slot (8:00 PM – 6:00 AM)',
     'Full Day / 24-Hour Stay',
   ];
 
-  const formatWhatsAppMessage = () => {
-    let text = `*New Booking Inquiry - HS Valley Farmhouse*\n\n`;
-    if (fullName) text += `• *Name:* ${fullName}\n`;
-    if (phoneNumber) text += `• *Contact:* ${phoneNumber}\n`;
-    text += `• *Occasion:* ${eventType}\n`;
-    if (preferredDate) text += `• *Date:* ${preferredDate}\n`;
-    text += `• *Guests:* ${guestCount}\n`;
-    text += `• *Slot:* ${slotTime}\n`;
-    if (message) text += `• *Notes:* ${message}\n`;
-    text += `\nPlease confirm availability and rate quote for Bahria Town Karachi location. Thank you!`;
-    return text;
-  };
-
-  const handleWhatsAppInquiry = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!phoneNumber && !fullName) {
-      setErrorMessage('Please provide your Name or Phone number to proceed.');
-      return;
-    }
-    setErrorMessage('');
-
-    const formattedText = formatWhatsAppMessage();
-    const url = `https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(formattedText)}`;
-    window.open(url, '_blank');
-  };
+  const bookingUrl = buildBookingUrl(contactConfig.whatsapp, { fullName, phoneNumber, eventType, preferredDate, guestCount, slotTime, message });
 
   const handleDirectSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName.trim() || !phoneNumber.trim()) {
-      setErrorMessage('Please fill in both your Name and Contact Phone number.');
+    const digits = phoneNumber.replace(/\D/g, '');
+    if (!fullName.trim() || digits.length < 10 || digits.length > 15) {
+      setErrorMessage('Enter your name and a valid phone number with 10–15 digits.');
+      return;
+    }
+    if (preferredDate && preferredDate < localDateToday()) {
+      setErrorMessage('Please choose today or a future date.');
       return;
     }
     setErrorMessage('');
-    setIsSubmitting(true);
-
-    // Simulate direct reservation registration
-    setTimeout(() => {
-      const generatedRef = `HSV-${Math.floor(100000 + Math.random() * 900000)}`;
-      setReferenceId(generatedRef);
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1000);
-  };
-
-  const handleResetForm = () => {
-    setIsSubmitted(false);
-    setFullName('');
-    setPhoneNumber('');
-    setMessage('');
-    setPreferredDate('');
+    setIsReviewOpen(true);
+    requestAnimationFrame(() => {
+      formCardRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+      formCardRef.current?.querySelector('h3')?.focus({ preventScroll: true });
+    });
   };
 
   const whatsappDirectUrl = `https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(
@@ -173,7 +106,7 @@ export function ContactSection() {
           <div className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#14251D] border border-[#B99A5B]/30 mb-3 sm:mb-4 shadow-md">
             <Sparkles size={13} className="text-[#B99A5B]" />
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#FAF9F5] font-mono font-medium">
-              Direct Reservations & Inquiries
+              Plan your visit
             </span>
           </div>
 
@@ -181,7 +114,7 @@ export function ContactSection() {
             Reserve Your <span className="italic text-[#B99A5B]">Private Escape</span>
           </h2>
           <p className="text-xs sm:text-sm md:text-base font-sans-body text-[#FAF9F5]/75 font-light mt-2.5 sm:mt-3 max-w-xl mx-auto">
-            Experience Karachi&apos;s secluded sanctuary on Gabol Abad Road, Bahria Town. Submit your requirements or connect instantly with our team.
+            Experience Karachi&apos;s secluded sanctuary on Gabol Abad Road, Bahria Town. Share your plans on WhatsApp and our team will confirm the details.
           </p>
         </div>
 
@@ -189,71 +122,30 @@ export function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start">
           {/* Main Contact Form Card (7 Cols) */}
           <div
-            ref={formCardRef}
+            data-reveal ref={formCardRef}
             className="lg:col-span-7 rounded-3xl bg-[#14251D]/85 border border-[#B99A5B]/30 p-5 sm:p-7 md:p-10 shadow-2xl backdrop-blur-md relative"
           >
-            {isSubmitted ? (
-              /* Success Confirmation View */
-              <div className="text-center py-8 sm:py-10 px-2 sm:px-4">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#25D366]/20 border border-[#25D366]/40 flex items-center justify-center mx-auto mb-5 sm:mb-6 text-[#25D366]">
-                  <CheckCircle2 size={32} />
-                </div>
-
-                <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#B99A5B] block mb-2">
-                  Inquiry Dispatched Successfully
-                </span>
-
-                <h3 className="text-2xl sm:text-3xl font-serif-editorial text-[#FAF9F5] font-light mb-2.5 sm:mb-3">
-                  Thank You, {fullName || 'Valued Guest'}
-                </h3>
-
-                <p className="text-xs sm:text-sm font-sans-body text-[#FAF9F5]/80 max-w-md mx-auto mb-6 leading-relaxed">
-                  Your reservation inquiry for{' '}
-                  <strong className="text-[#FAF9F5]">{eventType}</strong>{' '}
-                  {preferredDate ? `on ${preferredDate}` : ''} has been registered with Reference ID:{' '}
-                  <span className="font-mono text-[#B99A5B] font-semibold">{referenceId}</span>.
-                </p>
-
-                <div className="p-4 rounded-2xl bg-[#0B0F0D]/60 border border-[#FAF9F5]/10 max-w-md mx-auto mb-6 sm:mb-8 text-left text-xs font-sans-body space-y-2 text-[#FAF9F5]/70">
-                  <div className="flex justify-between">
-                    <span>Expected Guests:</span>
-                    <span className="font-medium text-[#FAF9F5]">{guestCount}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Preferred Slot:</span>
-                    <span className="font-medium text-[#FAF9F5]">{slotTime}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Location:</span>
-                    <span className="font-medium text-[#FAF9F5]">Bahria Town Karachi</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <button
-                    type="button"
-                    onClick={handleWhatsAppInquiry}
-                    data-cursor="explore"
-                    className="w-full sm:w-auto px-6 py-3.5 min-h-[44px] rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-[#0B0F0D] text-xs uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2 transition-all shadow-lg cursor-pointer"
-                  >
-                    <MessageSquare size={15} />
-                    <span>Also Send on WhatsApp</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleResetForm}
-                    className="w-full sm:w-auto px-6 py-3.5 min-h-[44px] rounded-full border border-[#FAF9F5]/20 hover:bg-[#FAF9F5]/10 text-[#FAF9F5] text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all cursor-pointer"
-                  >
-                    <RefreshCw size={14} />
-                    <span>Submit Another Inquiry</span>
-                  </button>
-                </div>
+            {isReviewOpen ? (
+              <div className="space-y-6" aria-live="polite">
+                <p className="eyebrow">One last look</p>
+                <h3 tabIndex={-1} className="text-3xl font-serif-editorial">Review your inquiry</h3>
+                <p className="text-sm leading-relaxed text-[#FAF9F5]/75">Check your details, then open WhatsApp and tap Send. Our team will confirm availability and pricing there.</p>
+                <dl className="booking-summary">
+                  {[
+                    ['Name', fullName], ['Phone', phoneNumber], ['Occasion', eventType],
+                    ['Date', preferredDate || 'To be discussed'], ['Guests', guestCount], ['Slot', slotTime],
+                    ...(message.trim() ? [['Notes', message]] : []),
+                  ].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
+                </dl>
+                {bookingUrl ? <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="booking-primary"><MessageSquare size={18} /> Open WhatsApp to send</a>
+                  : <p role="alert" className="text-sm text-amber-200">WhatsApp is unavailable. Please call {contactConfig.displayPhone}.</p>}
+                <button type="button" className="min-h-11 text-sm text-[#B99A5B] underline underline-offset-4" onClick={() => { setIsReviewOpen(false); requestAnimationFrame(() => document.getElementById('booking-name')?.focus({ preventScroll: true })); }}>Edit inquiry details</button>
+                <p className="text-xs leading-relaxed text-[#FAF9F5]/60">This is an inquiry, not a confirmed reservation. Your date is confirmed directly with the farmhouse team.</p>
               </div>
             ) : (
               /* Active Form View */
-              <form onSubmit={handleDirectSubmit} className="space-y-4 sm:space-y-6">
-                <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-[#FAF9F5]/10">
+              <form onSubmit={handleDirectSubmit} className="booking-form space-y-5 sm:space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-[#FAF9F5]/10">
                   <div>
                     <h3 className="text-xl sm:text-2xl font-serif-editorial text-[#FAF9F5] font-light">
                       Reservation Form
@@ -268,7 +160,7 @@ export function ContactSection() {
                 </div>
 
                 {errorMessage && (
-                  <div className="p-3 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs font-sans-body">
+                  <div role="alert" className="p-3 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs font-sans-body">
                     {errorMessage}
                   </div>
                 )}
@@ -276,10 +168,13 @@ export function ContactSection() {
                 {/* Name & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   <div>
-                    <label className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2">
+                    <label htmlFor="booking-name" className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2">
                       Full Name *
                     </label>
                     <input
+                      id="booking-name"
+                      name="name"
+                      autoComplete="name"
                       type="text"
                       required
                       value={fullName}
@@ -290,10 +185,13 @@ export function ContactSection() {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2">
+                    <label htmlFor="booking-phone" className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2">
                       Phone / WhatsApp Number *
                     </label>
                     <input
+                      id="booking-phone"
+                      name="phone"
+                      autoComplete="tel"
                       type="tel"
                       required
                       value={phoneNumber}
@@ -314,8 +212,9 @@ export function ContactSection() {
                       <button
                         key={type}
                         type="button"
+                        aria-pressed={eventType === type}
                         onClick={() => setEventType(type)}
-                        className={`py-2 px-2.5 sm:px-3 rounded-xl text-xs text-left transition-all border min-h-[38px] cursor-pointer ${
+                        className={`py-2 px-2.5 sm:px-3 rounded-xl text-xs text-left transition-all border min-h-[48px] cursor-pointer ${
                           eventType === type
                             ? 'bg-[#B99A5B] text-[#0B0F0D] font-semibold border-[#B99A5B] shadow-md'
                             : 'bg-[#0B0F0D]/60 border-[#FAF9F5]/10 text-[#FAF9F5]/80 hover:bg-[#0B0F0D]'
@@ -330,12 +229,14 @@ export function ContactSection() {
                 {/* Date & Guests */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   <div>
-                    <label className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2 flex items-center gap-1.5">
+                    <label htmlFor="booking-date" className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2 flex items-center gap-1.5">
                       <Calendar size={13} />
                       <span>Preferred Date</span>
                     </label>
                     <input
+                      id="booking-date"
                       type="date"
+                      min={localDateToday()}
                       value={preferredDate}
                       onChange={(e) => setPreferredDate(e.target.value)}
                       className="w-full bg-[#0B0F0D]/80 border border-[#FAF9F5]/15 focus:border-[#B99A5B] rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-xs text-[#FAF9F5] focus:outline-hidden transition-colors"
@@ -343,11 +244,12 @@ export function ContactSection() {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2 flex items-center gap-1.5">
+                    <label htmlFor="booking-guests" className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2 flex items-center gap-1.5">
                       <Users size={13} />
-                      <span>Expected Guests</span>
+                      <span>Expected Guests (Maximum 50)</span>
                     </label>
                     <select
+                      id="booking-guests"
                       value={guestCount}
                       onChange={(e) => setGuestCount(e.target.value)}
                       className="w-full bg-[#0B0F0D]/80 border border-[#FAF9F5]/15 focus:border-[#B99A5B] rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-xs text-[#FAF9F5] focus:outline-hidden transition-colors cursor-pointer"
@@ -367,13 +269,14 @@ export function ContactSection() {
                     <Clock size={13} />
                     <span>Time Slot Preference</span>
                   </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 gap-2">
                     {timeSlots.map((slot) => (
                       <button
                         key={slot}
                         type="button"
+                        aria-pressed={slotTime === slot}
                         onClick={() => setSlotTime(slot)}
-                        className={`py-2 px-2.5 sm:px-3 rounded-xl text-xs text-left transition-all border min-h-[38px] cursor-pointer ${
+                        className={`py-2 px-2.5 sm:px-3 rounded-xl text-xs text-left transition-all border min-h-[48px] cursor-pointer ${
                           slotTime === slot
                             ? 'bg-[#B99A5B] text-[#0B0F0D] font-semibold border-[#B99A5B] shadow-md'
                             : 'bg-[#0B0F0D]/60 border-[#FAF9F5]/10 text-[#FAF9F5]/80 hover:bg-[#0B0F0D]'
@@ -387,10 +290,11 @@ export function ContactSection() {
 
                 {/* Notes / Special Requests */}
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2">
+                  <label htmlFor="booking-notes" className="block text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#B99A5B] mb-1.5 sm:mb-2">
                     Special Requests or Questions (Optional)
                   </label>
                   <textarea
+                    id="booking-notes"
                     rows={3}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
@@ -399,42 +303,16 @@ export function ContactSection() {
                   />
                 </div>
 
-                {/* Action Buttons */}
-                <div className="pt-2 flex flex-col sm:flex-row gap-3">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    data-cursor="explore"
-                    className="flex-1 py-3.5 sm:py-4 px-6 min-h-[44px] rounded-full bg-[#B99A5B] hover:bg-[#a6884e] text-[#0B0F0D] text-xs uppercase tracking-[0.18em] sm:tracking-[0.2em] font-semibold flex items-center justify-center gap-2 transition-all shadow-xl disabled:opacity-50 cursor-pointer"
-                  >
-                    {isSubmitting ? (
-                      <RefreshCw size={16} className="animate-spin" />
-                    ) : (
-                      <Send size={15} />
-                    )}
-                    <span>{isSubmitting ? 'Submitting Request...' : 'Submit Reservation Request'}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleWhatsAppInquiry}
-                    data-cursor="explore"
-                    className="py-3.5 sm:py-4 px-6 min-h-[44px] rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-[#0B0F0D] text-xs uppercase tracking-[0.18em] sm:tracking-[0.2em] font-semibold flex items-center justify-center gap-2 transition-all shadow-xl cursor-pointer"
-                  >
-                    <MessageSquare size={16} />
-                    <span>Inquire via WhatsApp</span>
-                  </button>
+                <div className="pt-2">
+                  <button type="submit" className="booking-primary"><Send size={18} /> Review WhatsApp inquiry</button>
+                  <p className="text-xs leading-relaxed text-[#FAF9F5]/60 mt-3">Review your details before opening WhatsApp. No booking is made until our team confirms it.</p>
                 </div>
-
-                <p className="text-[10px] sm:text-[11px] text-[#FAF9F5]/50 font-mono text-center pt-1">
-                  🔒 Your details remain 100% confidential. No spam guaranteed.
-                </p>
               </form>
             )}
           </div>
 
           {/* Right Sidebar: Direct Contact & Guarantees (5 Cols) */}
-          <div ref={infoSidebarRef} className="lg:col-span-5 space-y-4 sm:space-y-6">
+          <div data-reveal ref={infoSidebarRef} className="lg:col-span-5 space-y-4 sm:space-y-6">
             {/* Quick Contact Card */}
             <div className="rounded-3xl bg-[#14251D]/70 border border-[#B99A5B]/25 p-5 sm:p-7 md:p-8 backdrop-blur-md shadow-xl">
               <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.28em] sm:tracking-[0.3em] text-[#B99A5B] block mb-3 sm:mb-4">

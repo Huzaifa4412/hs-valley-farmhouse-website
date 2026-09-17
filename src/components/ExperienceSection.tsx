@@ -1,10 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { experiencesData, srcSetFor } from '../config/siteConfig';
 
-gsap.registerPlugin(ScrollTrigger);
+import { useReveal } from '../hooks/useReveal';
 
 interface ExperienceSectionProps {
   onOpenInquiry: () => void;
@@ -14,30 +12,7 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      const cards = cardsContainerRef.current?.children;
-      if (!cards) return;
-
-      gsap.from(cards, {
-        y: 45,
-        opacity: 0,
-        stagger: 0.12,
-        duration: 0.9,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  useReveal(sectionRef);
 
   return (
     <section
@@ -66,7 +41,7 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
 
         {/* 2x2 Large Editorial Image Experience Grid */}
         <div
-          ref={cardsContainerRef}
+          data-reveal ref={cardsContainerRef}
           className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8"
         >
           {experiencesData.map((item) => (
@@ -74,7 +49,11 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
               key={item.id}
               data-cursor="explore"
               onClick={onOpenInquiry}
-              className="group relative rounded-2xl overflow-hidden aspect-[4/3] xs:aspect-[16/11] border border-[#FAF9F5]/10 bg-[#14251D]/50 shadow-2xl cursor-pointer"
+              role="button"
+              tabIndex={0}
+              aria-label={`Inquire about ${item.title}`}
+              onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onOpenInquiry(); } }}
+              className="group relative w-full min-w-0 rounded-2xl overflow-hidden min-h-[320px] aspect-[4/3] xs:aspect-[16/11] border border-[#FAF9F5]/10 bg-[#14251D]/50 shadow-2xl cursor-pointer"
             >
               {/* Background Image with Zoom */}
               <img
@@ -84,7 +63,7 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
                 alt={item.title}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+                className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
               />
 
               {/* Multi-layer Dark Gradient Overlays */}
