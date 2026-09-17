@@ -65,7 +65,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
     <div ref={navigationRef}>
       <header
         id="main-navbar"
-        className={`navbar-enter fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           isScrolled
             ? 'py-3 sm:py-3.5 bg-[#0B0F0D]/90 backdrop-blur-md border-b border-[#B99A5B]/15 shadow-xl'
             : 'py-4 sm:py-6 md:py-8 bg-transparent'
@@ -179,10 +179,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
                   handleLinkClick(link.href);
                 }}
                 data-cursor="explore"
-                style={{ transitionDelay: isMenuOpen ? `${idx * 45 + 120}ms` : '0ms' }}
-                className={`group flex items-center gap-3 sm:gap-4 text-xl sm:text-2xl md:text-4xl lg:text-5xl font-serif-editorial text-[#FAF9F5] hover:text-[#B99A5B] transition-all duration-500 py-1.5 ${
-                  isMenuOpen ? 'translate-x-0 opacity-100' : '-translate-x-5 opacity-0'
-                }`}
+                className="group flex items-center gap-3 sm:gap-4 text-xl sm:text-2xl md:text-4xl lg:text-5xl font-serif-editorial text-[#FAF9F5] hover:text-[#B99A5B] transition-colors py-1.5"
               >
                 <span className="text-[11px] sm:text-xs font-mono text-[#B99A5B]/60 group-hover:text-[#B99A5B]">
                   0{idx + 1}

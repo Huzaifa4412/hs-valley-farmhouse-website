@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Plus, Minus, MessageSquare, Sparkles } from 'lucide-react';
 import { faqData, contactConfig } from '../config/siteConfig';
+
 import { useReveal } from '../hooks/useReveal';
 
 export function FAQSection() {
@@ -31,7 +32,7 @@ export function FAQSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
         {/* Section Header */}
-        <div data-reveal className="lg:col-span-4 lg:sticky lg:top-28 text-center lg:text-left">
+        <div className="lg:col-span-4 lg:sticky lg:top-28 text-center lg:text-left">
           <div className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#14251D] border border-[#B99A5B]/40 mb-3 sm:mb-4 shadow-sm">
             <Sparkles size={13} className="text-[#B99A5B]" />
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#B99A5B] font-mono font-medium">
@@ -68,16 +69,14 @@ export function FAQSection() {
         </div>
 
         {/* FAQ Accordion List */}
-        <div ref={listRef} className="lg:col-span-8 space-y-3 sm:space-y-3.5 w-full">
+        <div data-reveal ref={listRef} className="lg:col-span-8 space-y-3 sm:space-y-3.5 w-full">
           {faqData.map((faq, idx) => {
             const isOpen = openId === faq.id;
 
             return (
               <div
                 key={faq.id}
-                data-reveal
-                data-reveal-delay={String(idx * 50)}
-                className={`rounded-2xl transition-all duration-300 border overflow-hidden backdrop-blur-md ${
+                className={`rounded-2xl transition-colors duration-300 border overflow-hidden backdrop-blur-md ${
                   isOpen
                     ? 'bg-[#14251D] border-[#B99A5B] shadow-2xl ring-1 ring-[#B99A5B]/30'
                     : 'bg-[#14251D]/80 hover:bg-[#14251D] border-[#FAF9F5]/15 hover:border-[#B99A5B]/50'
@@ -102,9 +101,9 @@ export function FAQSection() {
                   </div>
 
                   <div
-                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 border transition-colors ${
                       isOpen
-                        ? 'rotate-180 bg-[#B99A5B] text-[#0B0F0D] border-[#B99A5B] shadow-md'
+                        ? 'bg-[#B99A5B] text-[#0B0F0D] border-[#B99A5B] shadow-md'
                         : 'bg-[#0B0F0D] text-[#FAF9F5] border-[#FAF9F5]/30 group-hover:border-[#B99A5B] group-hover:text-[#B99A5B]'
                     }`}
                   >
@@ -112,25 +111,18 @@ export function FAQSection() {
                   </div>
                 </button>
 
-                <div className={`faq-accordion-grid ${isOpen ? 'is-open' : ''}`}>
-                  <div className="faq-accordion-inner">
-                    <div
-                      id={`answer-${faq.id}`}
-                      role="region"
-                      aria-labelledby={`question-${faq.id}`}
-                      className="px-4 sm:px-6 md:px-8 pb-5 sm:pb-6 text-sm sm:text-base text-[#FAF9F5]/80 leading-relaxed whitespace-pre-line"
-                    >
-                      {faq.answer}
-                    </div>
+                {isOpen && (
+                  <div id={`answer-${faq.id}`} role="region" aria-labelledby={`question-${faq.id}`} className="px-4 sm:px-6 md:px-8 pb-5 sm:pb-6 text-sm sm:text-base text-[#FAF9F5]/80 leading-relaxed whitespace-pre-line">
+                    {faq.answer}
                   </div>
-                </div>
+                )}
               </div>
             );
           })}
         </div>
 
         {/* Bottom Support & Direct WhatsApp Prompt (narrow screens only) */}
-        <div data-reveal data-reveal-delay="150" className="lg:hidden mt-2 p-5 sm:p-7 rounded-3xl bg-[#14251D]/90 border border-[#B99A5B]/30 text-center flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 backdrop-blur-md shadow-xl">
+        <div className="lg:hidden mt-2 p-5 sm:p-7 rounded-3xl bg-[#14251D]/90 border border-[#B99A5B]/30 text-center flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 backdrop-blur-md shadow-xl">
           <div className="text-center sm:text-left">
             <h4 className="text-base sm:text-lg md:text-xl font-serif-editorial text-white font-medium mb-1">
               Have a customized requirement or special question?

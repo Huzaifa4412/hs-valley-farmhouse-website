@@ -43,7 +43,7 @@ export function AmenitiesSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Header */}
-        <div data-reveal className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
               <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
@@ -63,23 +63,21 @@ export function AmenitiesSection() {
 
         {/* Facilities Grid */}
         <div
-          ref={gridRef}
+          data-reveal ref={gridRef}
           className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
         >
-          {amenitiesData.map((item, idx) => {
+          {amenitiesData.map((item) => {
             const Icon = iconMap[item.icon] ?? Trees;
 
             return (
               <div
                 key={item.id}
-                data-reveal
-                data-reveal-delay={String(idx * 70)}
-                className="group rounded-2xl bg-[#14251D]/60 hover:bg-[#14251D] border border-[#FAF9F5]/10 hover:border-[#B99A5B]/50 hover:-translate-y-1.5 p-4 sm:p-5 lg:p-6 transition-all duration-300 backdrop-blur-xs shadow-md hover:shadow-xl"
+                className="group rounded-2xl bg-[#14251D]/60 hover:bg-[#14251D] border border-[#FAF9F5]/10 hover:border-[#B99A5B]/50 p-4 sm:p-5 lg:p-6 transition-all duration-300 backdrop-blur-xs"
               >
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#B99A5B]/30 bg-[#0B0F0D]/70 flex items-center justify-center text-[#B99A5B] mb-4 group-hover:bg-[#B99A5B] group-hover:text-[#0B0F0D] group-hover:scale-105 transition-all duration-300">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#B99A5B]/30 bg-[#0B0F0D]/70 flex items-center justify-center text-[#B99A5B] mb-4 group-hover:bg-[#B99A5B] group-hover:text-[#0B0F0D] transition-colors duration-300">
                   <Icon size={18} />
                 </div>
-                <h3 className="text-base sm:text-lg font-serif-editorial text-[#FAF9F5] font-normal mb-1.5 group-hover:text-[#B99A5B] transition-colors">
+                <h3 className="text-base sm:text-lg font-serif-editorial text-[#FAF9F5] font-normal mb-1.5">
                   {item.title}
                 </h3>
                 <p className="text-xs sm:text-[13px] font-sans-body text-[#FAF9F5]/65 font-light leading-relaxed">

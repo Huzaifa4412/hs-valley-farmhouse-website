@@ -1,14 +1,10 @@
 import { useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { imagesConfig, srcSetFor } from '../config/siteConfig';
-import { useReveal } from '../hooks/useReveal';
 
 export function HorizontalScrollSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-
-  useReveal(sectionRef);
   const horizontalSlides = [
     {
       id: 'slide-1',
@@ -78,9 +74,9 @@ export function HorizontalScrollSection() {
   };
 
   return (
-    <section ref={sectionRef} id="property-journey" className="section-space bg-[#14251D]/40 border-y border-[#B99A5B]/15">
+    <section id="property-journey" className="section-space bg-[#14251D]/40 border-y border-[#B99A5B]/15">
       <div className="page-container">
-        <div data-reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
           <div className="max-w-2xl">
             <p className="eyebrow mb-3">A look around</p>
             <h2 className="section-title">Explore the <em className="text-[#B99A5B]">farmhouse.</em></h2>
@@ -88,18 +84,11 @@ export function HorizontalScrollSection() {
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <span className="text-xs font-mono text-[#B99A5B] mr-2" aria-live="polite">{String(activeIndex + 1).padStart(2, '0')} / 07</span>
-            <button type="button" className="round-control hover:scale-105 active:scale-95 transition-all" aria-label="Previous property photo" onClick={() => move(-1)} disabled={activeIndex === 0}><ArrowLeft size={18} /></button>
-            <button type="button" className="round-control hover:scale-105 active:scale-95 transition-all" aria-label="Next property photo" onClick={() => move(1)} disabled={activeIndex === horizontalSlides.length - 1}><ArrowRight size={18} /></button>
+            <button type="button" className="round-control" aria-label="Previous property photo" onClick={() => move(-1)} disabled={activeIndex === 0}><ArrowLeft size={18} /></button>
+            <button type="button" className="round-control" aria-label="Next property photo" onClick={() => move(1)} disabled={activeIndex === horizontalSlides.length - 1}><ArrowRight size={18} /></button>
           </div>
         </div>
-        <div
-          data-reveal
-          data-reveal-delay="140"
-          ref={trackRef}
-          className="property-track"
-          role="region"
-          aria-label="Farmhouse photo tour"
-          tabIndex={0}
+        <div ref={trackRef} className="property-track" role="region" aria-label="Farmhouse photo tour" tabIndex={0}
           onScroll={() => {
             const track = trackRef.current;
             if (!track) return;
@@ -108,21 +97,19 @@ export function HorizontalScrollSection() {
             setActiveIndex(atEnd ? cards.length - 1 : cards.reduce((best, card, i) => Math.abs(card.offsetLeft - track.offsetLeft - track.scrollLeft) < Math.abs(cards[best].offsetLeft - track.offsetLeft - track.scrollLeft) ? i : best, 0));
           }}>
           {horizontalSlides.map(slide => (
-            <article key={slide.id} className="property-slide group">
-              <div className="aspect-[4/3] overflow-hidden">
-                <img src={slide.image} srcSet={srcSetFor(slide.image)} sizes="(max-width: 640px) 85vw, (max-width: 1024px) 65vw, 550px" alt={slide.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-              </div>
+            <article key={slide.id} className="property-slide">
+              <img src={slide.image} srcSet={srcSetFor(slide.image)} sizes="(max-width: 640px) 85vw, (max-width: 1024px) 65vw, 550px" alt={slide.title} loading="lazy" decoding="async" className="w-full aspect-[4/3] object-cover" />
               <div className="p-5 sm:p-6">
                 <p className="eyebrow text-[10px] mb-3">{slide.tag}</p>
-                <h3 className="font-serif-editorial text-2xl sm:text-3xl mb-2 group-hover:text-[#B99A5B] transition-colors">{slide.title}</h3>
+                <h3 className="font-serif-editorial text-2xl sm:text-3xl mb-2">{slide.title}</h3>
                 <p className="text-sm text-[#FAF9F5]/70 leading-relaxed">{slide.description}</p>
               </div>
             </article>
           ))}
         </div>
-        <div data-reveal data-reveal-delay="200" className="flex flex-wrap items-center justify-between gap-4 mt-6 text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-4 mt-6 text-sm">
           <p className="text-[#FAF9F5]/60">One booking. The whole place to yourselves.</p>
-          <a href="#contact" className="inline-flex items-center gap-2 min-h-11 text-[#B99A5B] hover:text-[#FAF9F5] transition-colors">Plan your visit <ArrowUpRight size={17} /></a>
+          <a href="#contact" className="inline-flex items-center gap-2 min-h-11 text-[#B99A5B] hover:text-[#FAF9F5]">Plan your visit <ArrowUpRight size={17} /></a>
         </div>
       </div>
     </section>

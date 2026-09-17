@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import { useLenis } from './hooks/useLenis';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { EditorialIntro } from './components/EditorialIntro';
@@ -21,7 +20,6 @@ import { galleryItemsData } from './config/siteConfig';
 import { LightboxState } from './types';
 
 export default function App() {
-  useLenis();
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
   const [lightboxState, setLightboxState] = useState<LightboxState>({
     isOpen: false,

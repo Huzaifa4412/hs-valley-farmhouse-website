@@ -43,7 +43,7 @@ export function LocationSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Section Header */}
-        <div data-reveal className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-3">
               <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
@@ -65,9 +65,7 @@ export function LocationSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-stretch">
           {/* Left Details Card */}
           <div
-            data-reveal
-            data-reveal-delay="100"
-            ref={infoCardRef}
+            data-reveal ref={infoCardRef}
             className="lg:col-span-5 rounded-3xl bg-[#14251D]/70 border border-[#B99A5B]/25 p-5 sm:p-7 md:p-9 flex flex-col justify-between backdrop-blur-md shadow-2xl"
           >
             <div>
@@ -150,10 +148,7 @@ export function LocationSection() {
 
           {/* Right Live Map Embed Container */}
           <div
-            data-reveal
-            data-reveal-delay="200"
-            data-reveal-direction="scale"
-            ref={mapFrameRef}
+            data-reveal ref={mapFrameRef}
             className="lg:col-span-7 rounded-3xl overflow-hidden border border-[#B99A5B]/30 shadow-2xl bg-[#14251D] relative min-h-[320px] sm:min-h-[400px] lg:min-h-[500px]"
           >
             <iframe

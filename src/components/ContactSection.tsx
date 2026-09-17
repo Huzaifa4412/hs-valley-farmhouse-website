@@ -102,7 +102,7 @@ export function ContactSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Section Header */}
-        <div data-reveal className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12">
           <div className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#14251D] border border-[#B99A5B]/30 mb-3 sm:mb-4 shadow-md">
             <Sparkles size={13} className="text-[#B99A5B]" />
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#FAF9F5] font-mono font-medium">
@@ -122,9 +122,7 @@ export function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start">
           {/* Main Contact Form Card (7 Cols) */}
           <div
-            data-reveal
-            data-reveal-delay="100"
-            ref={formCardRef}
+            data-reveal ref={formCardRef}
             className="lg:col-span-7 rounded-3xl bg-[#14251D]/85 border border-[#B99A5B]/30 p-5 sm:p-7 md:p-10 shadow-2xl backdrop-blur-md relative"
           >
             {isReviewOpen ? (
@@ -314,12 +312,7 @@ export function ContactSection() {
           </div>
 
           {/* Right Sidebar: Direct Contact & Guarantees (5 Cols) */}
-          <div
-            data-reveal
-            data-reveal-delay="200"
-            ref={infoSidebarRef}
-            className="lg:col-span-5 space-y-4 sm:space-y-6"
-          >
+          <div data-reveal ref={infoSidebarRef} className="lg:col-span-5 space-y-4 sm:space-y-6">
             {/* Quick Contact Card */}
             <div className="rounded-3xl bg-[#14251D]/70 border border-[#B99A5B]/25 p-5 sm:p-7 md:p-8 backdrop-blur-md shadow-xl">
               <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.28em] sm:tracking-[0.3em] text-[#B99A5B] block mb-3 sm:mb-4">
