@@ -22,7 +22,7 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Section Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
+        <div data-reveal className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
               <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
@@ -41,19 +41,21 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
 
         {/* 2x2 Large Editorial Image Experience Grid */}
         <div
-          data-reveal ref={cardsContainerRef}
+          ref={cardsContainerRef}
           className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8"
         >
-          {experiencesData.map((item) => (
+          {experiencesData.map((item, idx) => (
             <div
               key={item.id}
+              data-reveal
+              data-reveal-delay={String(idx * 110)}
               data-cursor="explore"
               onClick={onOpenInquiry}
               role="button"
               tabIndex={0}
               aria-label={`Inquire about ${item.title}`}
               onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onOpenInquiry(); } }}
-              className="group relative w-full min-w-0 rounded-2xl overflow-hidden min-h-[320px] aspect-[4/3] xs:aspect-[16/11] border border-[#FAF9F5]/10 bg-[#14251D]/50 shadow-2xl cursor-pointer"
+              className="group relative w-full min-w-0 rounded-2xl overflow-hidden min-h-[320px] aspect-[4/3] xs:aspect-[16/11] border border-[#FAF9F5]/10 hover:border-[#B99A5B]/60 bg-[#14251D]/50 shadow-2xl cursor-pointer hover:scale-[1.01] transition-all duration-500"
             >
               {/* Background Image with Zoom */}
               <img

@@ -43,7 +43,7 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
             loading="eager"
             fetchPriority="high"
             decoding="async"
-            className="w-full h-full object-cover object-center md:object-[center_40%]"
+            className="w-full h-full object-cover object-center md:object-[center_40%] animate-ken-burns will-change-transform scale-105"
           />
         </picture>
 
@@ -56,7 +56,7 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <div className="max-w-4xl">
           {/* Eyebrow Label */}
-          <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+          <div className="hero-fade-up-1 flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
             <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
             <span className="text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono font-medium">
               Bahria Town • Karachi
@@ -65,7 +65,7 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
 
           {/* Main Display Heading */}
           <h1
-            className="hero-title font-serif-editorial text-[#FAF9F5] font-light leading-[1.08] sm:leading-[1.05] tracking-tight uppercase mb-4 sm:mb-6"
+            className="hero-fade-up-2 hero-title font-serif-editorial text-[#FAF9F5] font-light leading-[1.08] sm:leading-[1.05] tracking-tight uppercase mb-4 sm:mb-6"
           >
             Your Private <br className="hidden sm:block" />
             <span className="italic font-normal text-[#F3EFE5]">Escape</span> in Karachi
@@ -73,14 +73,14 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
 
           {/* Supporting Statement */}
           <p
-            className="text-sm sm:text-base md:text-lg font-sans-body text-[#FAF9F5]/85 font-light leading-relaxed max-w-2xl mb-6 sm:mb-8"
+            className="hero-fade-up-3 text-sm sm:text-base md:text-lg font-sans-body text-[#FAF9F5]/85 font-light leading-relaxed max-w-2xl mb-6 sm:mb-8"
           >
             A gated farmhouse on Gabol Abad Road with a covered swimming pool, children&apos;s playground, floodlit sports court and a resident mini zoo. Booked privately, one group at a time.
           </p>
 
           {/* Signature Facilities Strip */}
           <div
-            className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-6 sm:mb-8 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.18em] text-[#FAF9F5]/70">
+            className="hero-fade-up-4 flex flex-wrap items-center gap-x-4 gap-y-2 mb-6 sm:mb-8 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.18em] text-[#FAF9F5]/70">
             {['Covered Pool', 'Kids Playground', 'Sports Court', 'Mini Zoo', 'AC Rooms'].map((label) => (
               <span key={label} className="flex items-center gap-2">
                 <span className="w-1 h-1 rounded-full bg-[#B99A5B]" />
@@ -91,7 +91,7 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
 
           {/* CTAs */}
           <div
-            className="flex flex-col xs:flex-row items-stretch xs:items-center gap-3 sm:gap-6"
+            className="hero-fade-up-5 flex flex-col xs:flex-row items-stretch xs:items-center gap-3 sm:gap-6"
           >
             <a
               href="#intro-statement"
@@ -121,7 +121,7 @@ export function HeroSection({ onOpenInquiry }: HeroSectionProps) {
         href="#intro-statement"
         onClick={handleExploreClick}
         data-cursor="explore"
-        className="hidden md:flex absolute bottom-8 right-8 md:right-12 z-10 flex-col items-center gap-2 group text-[#FAF9F5]/60 hover:text-[#B99A5B] transition-colors"
+        className="hero-fade-up-6 hidden md:flex absolute bottom-8 right-8 md:right-12 z-10 flex-col items-center gap-2 group text-[#FAF9F5]/60 hover:text-[#B99A5B] transition-colors"
         aria-label="Scroll down to introduction"
       >
         <span className="text-[10px] tracking-[0.3em] uppercase font-mono writing-mode-vertical rotate-180">

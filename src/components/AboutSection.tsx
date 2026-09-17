@@ -22,21 +22,27 @@ export function AboutSection() {
         {/* Asymmetrical Editorial Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-start">
           {/* Left Column: Big Serif Display */}
-          <div data-reveal ref={leftColRef} className="lg:col-span-6">
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
-              <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
-              <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono">
-                About the Estate
-              </span>
+          <div ref={leftColRef} className="lg:col-span-6 space-y-6">
+            <div data-reveal>
+              <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
+                <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
+                <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono">
+                  About the Estate
+                </span>
+              </div>
+
+              <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif-editorial font-light leading-[1.08] sm:leading-[1.05] tracking-tight uppercase mb-6 sm:mb-8">
+                A Place <br />
+                <span className="italic text-[#B99A5B]">Made for Moments</span>
+              </h2>
             </div>
 
-            <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif-editorial font-light leading-[1.08] sm:leading-[1.05] tracking-tight uppercase mb-6 sm:mb-8">
-              A Place <br />
-              <span className="italic text-[#B99A5B]">Made for Moments</span>
-            </h2>
-
             {/* Architecture / Philosophy Detail */}
-            <div className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm md:text-base font-sans-body text-[#FAF9F5]/70 font-light leading-relaxed max-w-lg">
+            <div
+              data-reveal
+              data-reveal-delay="120"
+              className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm md:text-base font-sans-body text-[#FAF9F5]/70 font-light leading-relaxed max-w-lg"
+            >
               <p>
                 Set against the open skies of Gabol Abad Road near Bahria Town Karachi, HS Valley Farmhouse is a walled private estate built for one group at a time. Inside the gate: a covered swimming pool, wide lawns, timber gazebos, a floodlit sports court and a small resident zoo.
               </p>
@@ -46,7 +52,11 @@ export function AboutSection() {
             </div>
 
             {/* Location Pill & Verification Tags */}
-            <div className="mt-7 sm:mt-8 pt-6 sm:pt-7 border-t border-[#FAF9F5]/10 flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-6">
+            <div
+              data-reveal
+              data-reveal-delay="240"
+              className="mt-7 sm:mt-8 pt-6 sm:pt-7 border-t border-[#FAF9F5]/10 flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-6"
+            >
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#B99A5B]/30 flex items-center justify-center bg-[#14251D] shrink-0">
                   <MapPin size={15} className="text-[#B99A5B]" />
@@ -78,8 +88,12 @@ export function AboutSection() {
           </div>
 
           {/* Right Column: Editorial Paragraph & Featured Architectural Imagery */}
-          <div data-reveal ref={rightColRef} className="lg:col-span-6 flex flex-col space-y-6 sm:space-y-8">
-            <div className="p-6 sm:p-8 md:p-10 rounded-2xl bg-[#14251D]/60 border border-[#B99A5B]/20 relative overflow-hidden backdrop-blur-xs">
+          <div ref={rightColRef} className="lg:col-span-6 flex flex-col space-y-6 sm:space-y-8">
+            <div
+              data-reveal
+              data-reveal-delay="140"
+              className="p-6 sm:p-8 md:p-10 rounded-2xl bg-[#14251D]/60 border border-[#B99A5B]/20 relative overflow-hidden backdrop-blur-xs"
+            >
               <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.28em] text-[#B99A5B] block mb-2.5 sm:mb-3">
                 The Mission
               </span>
@@ -90,7 +104,10 @@ export function AboutSection() {
 
             {/* Asymmetrical Image Frame */}
             <div
-              data-reveal ref={imageFrameRef}
+              data-reveal
+              data-reveal-delay="240"
+              data-reveal-direction="scale"
+              ref={imageFrameRef}
               data-cursor="view"
               className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-[#FAF9F5]/10 shadow-2xl group"
             >

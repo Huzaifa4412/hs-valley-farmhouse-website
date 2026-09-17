@@ -1,41 +1,49 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function useLenis() {
   useEffect(() => {
     // Respect reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      return;
-    }
+    if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.2,
       infinite: false,
     });
 
-    // Synchronize Lenis with GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
 
-    const updateTicker = (time: number) => {
-      lenis.raf(time * 1000);
+    // Smoothly handle in-page anchor links
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a[href^="#"]');
+      if (!target) return;
+      const href = target.getAttribute('href');
+      if (href && href.length > 1 && href.startsWith('#')) {
+        const destination = document.querySelector(href);
+        if (destination) {
+          e.preventDefault();
+          lenis.scrollTo(destination as HTMLElement, { offset: -40 });
+        }
+      }
     };
 
-    gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    document.addEventListener('click', handleAnchorClick);
 
     return () => {
-      gsap.ticker.remove(updateTicker);
+      document.removeEventListener('click', handleAnchorClick);
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);
