@@ -21,7 +21,7 @@ export function FloatingWhatsApp() {
 
   return (
     <div
-      className="fixed bottom-[max(16px,env(safe-area-inset-bottom))] right-4 sm:right-6 z-30 flex items-center gap-3 select-none"
+      className="float-in fixed bottom-[max(16px,env(safe-area-inset-bottom))] right-4 sm:right-6 z-30 flex items-center gap-3 select-none"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -43,7 +43,7 @@ export function FloatingWhatsApp() {
         target="_blank"
         rel="noopener noreferrer"
         data-cursor="explore"
-        className="relative group w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-[#0B0F0D] flex items-center justify-center shadow-2xl transition-transform duration-300 hover:scale-105 focus:outline-hidden"
+        className="relative group w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-[#0B0F0D] flex items-center justify-center shadow-2xl transition-transform duration-300 hover:scale-110 hover:-translate-y-0.5 active:scale-95 focus:outline-hidden"
         aria-label="Chat on WhatsApp with HS Valley Farmhouse"
       >
         <MessageSquare size={26} className="fill-current" />

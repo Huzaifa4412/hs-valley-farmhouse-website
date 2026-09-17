@@ -38,25 +38,25 @@ export function LocationSection() {
       className="relative w-full py-14 sm:py-18 md:py-24 bg-[#0B0F0D] text-[#FAF9F5] overflow-hidden border-t border-[#14251D]"
     >
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 -right-40 w-96 h-96 rounded-full bg-[#14251D]/40 blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-10 -left-40 w-96 h-96 rounded-full bg-[#B99A5B]/10 blur-[140px] pointer-events-none" />
+      <div data-parallax="0.26" className="absolute top-1/4 -right-40 w-96 h-96 rounded-full bg-[#14251D]/40 blur-[130px] pointer-events-none" />
+      <div data-parallax="-0.2" className="absolute bottom-10 -left-40 w-96 h-96 rounded-full bg-[#B99A5B]/10 blur-[140px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-3">
-              <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
+            <div data-reveal="fade" className="flex items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-3">
+              <span className="rule-grow w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
               <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono">
                 Coordinates & Access
               </span>
             </div>
-            <h2 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-serif-editorial font-light uppercase tracking-tight">
+            <h2 data-reveal className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-serif-editorial font-light uppercase tracking-tight">
               Estate <span className="italic text-[#B99A5B]">Location</span> & Directions
             </h2>
           </div>
 
-          <p className="text-xs sm:text-sm font-sans-body text-[#FAF9F5]/70 max-w-md font-light">
+          <p data-reveal data-reveal-delay="120" className="text-xs sm:text-sm font-sans-body text-[#FAF9F5]/70 max-w-md font-light">
             Conveniently situated in the peaceful Gabol Abad corridor near Bahria Town Karachi, offering seamless access with maximum seclusion.
           </p>
         </div>
@@ -65,7 +65,7 @@ export function LocationSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-stretch">
           {/* Left Details Card */}
           <div
-            data-reveal ref={infoCardRef}
+            data-reveal="left" ref={infoCardRef}
             className="lg:col-span-5 rounded-3xl bg-[#14251D]/70 border border-[#B99A5B]/25 p-5 sm:p-7 md:p-9 flex flex-col justify-between backdrop-blur-md shadow-2xl"
           >
             <div>
@@ -148,7 +148,7 @@ export function LocationSection() {
 
           {/* Right Live Map Embed Container */}
           <div
-            data-reveal ref={mapFrameRef}
+            data-reveal="right" data-reveal-delay="140" ref={mapFrameRef}
             className="lg:col-span-7 rounded-3xl overflow-hidden border border-[#B99A5B]/30 shadow-2xl bg-[#14251D] relative min-h-[320px] sm:min-h-[400px] lg:min-h-[500px]"
           >
             <iframe

@@ -110,10 +110,10 @@ export function ContactSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-serif-editorial font-light uppercase tracking-tight text-[#FAF9F5] leading-tight">
+          <h2 data-reveal className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-serif-editorial font-light uppercase tracking-tight text-[#FAF9F5] leading-tight">
             Reserve Your <span className="italic text-[#B99A5B]">Private Escape</span>
           </h2>
-          <p className="text-xs sm:text-sm md:text-base font-sans-body text-[#FAF9F5]/75 font-light mt-2.5 sm:mt-3 max-w-xl mx-auto">
+          <p data-reveal data-reveal-delay="120" className="text-xs sm:text-sm md:text-base font-sans-body text-[#FAF9F5]/75 font-light mt-2.5 sm:mt-3 max-w-xl mx-auto">
             Experience Karachi&apos;s secluded sanctuary on Gabol Abad Road, Bahria Town. Share your plans on WhatsApp and our team will confirm the details.
           </p>
         </div>
@@ -122,7 +122,7 @@ export function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start">
           {/* Main Contact Form Card (7 Cols) */}
           <div
-            data-reveal ref={formCardRef}
+            data-reveal="left" ref={formCardRef}
             className="lg:col-span-7 rounded-3xl bg-[#14251D]/85 border border-[#B99A5B]/30 p-5 sm:p-7 md:p-10 shadow-2xl backdrop-blur-md relative"
           >
             {isReviewOpen ? (
@@ -312,7 +312,7 @@ export function ContactSection() {
           </div>
 
           {/* Right Sidebar: Direct Contact & Guarantees (5 Cols) */}
-          <div data-reveal ref={infoSidebarRef} className="lg:col-span-5 space-y-4 sm:space-y-6">
+          <div data-reveal="right" data-reveal-delay="140" ref={infoSidebarRef} className="lg:col-span-5 space-y-4 sm:space-y-6">
             {/* Quick Contact Card */}
             <div className="rounded-3xl bg-[#14251D]/70 border border-[#B99A5B]/25 p-5 sm:p-7 md:p-8 backdrop-blur-md shadow-xl">
               <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.28em] sm:tracking-[0.3em] text-[#B99A5B] block mb-3 sm:mb-4">

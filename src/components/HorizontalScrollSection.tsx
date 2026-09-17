@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { imagesConfig, srcSetFor } from '../config/siteConfig';
+import { useReveal } from '../hooks/useReveal';
 
 export function HorizontalScrollSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const horizontalSlides = [
@@ -65,6 +67,8 @@ export function HorizontalScrollSection() {
   ];
 
 
+  useReveal(sectionRef);
+
   const move = (direction: number) => {
     const track = trackRef.current;
     if (!track) return;
@@ -74,13 +78,13 @@ export function HorizontalScrollSection() {
   };
 
   return (
-    <section id="property-journey" className="section-space bg-[#14251D]/40 border-y border-[#B99A5B]/15">
+    <section ref={sectionRef} id="property-journey" className="section-space bg-[#14251D]/40 border-y border-[#B99A5B]/15">
       <div className="page-container">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
           <div className="max-w-2xl">
-            <p className="eyebrow mb-3">A look around</p>
-            <h2 className="section-title">Explore the <em className="text-[#B99A5B]">farmhouse.</em></h2>
-            <p className="mt-4 text-sm text-[#FAF9F5]/70">From a morning by the pool to an evening on the lawn. Swipe through the grounds.</p>
+            <p data-reveal="fade" className="eyebrow mb-3">A look around</p>
+            <h2 data-reveal className="section-title">Explore the <em className="text-[#B99A5B]">farmhouse.</em></h2>
+            <p data-reveal data-reveal-delay="140" className="mt-4 text-sm text-[#FAF9F5]/70">From a morning by the pool to an evening on the lawn. Swipe through the grounds.</p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <span className="text-xs font-mono text-[#B99A5B] mr-2" aria-live="polite">{String(activeIndex + 1).padStart(2, '0')} / 07</span>
@@ -88,7 +92,7 @@ export function HorizontalScrollSection() {
             <button type="button" className="round-control" aria-label="Next property photo" onClick={() => move(1)} disabled={activeIndex === horizontalSlides.length - 1}><ArrowRight size={18} /></button>
           </div>
         </div>
-        <div ref={trackRef} className="property-track" role="region" aria-label="Farmhouse photo tour" tabIndex={0}
+        <div ref={trackRef} data-reveal="scale" className="property-track" role="region" aria-label="Farmhouse photo tour" tabIndex={0}
           onScroll={() => {
             const track = trackRef.current;
             if (!track) return;
@@ -109,7 +113,7 @@ export function HorizontalScrollSection() {
         </div>
         <div className="flex flex-wrap items-center justify-between gap-4 mt-6 text-sm">
           <p className="text-[#FAF9F5]/60">One booking. The whole place to yourselves.</p>
-          <a href="#contact" className="inline-flex items-center gap-2 min-h-11 text-[#B99A5B] hover:text-[#FAF9F5]">Plan your visit <ArrowUpRight size={17} /></a>
+          <a href="#contact" className="link-underline group inline-flex items-center gap-2 min-h-11 text-[#B99A5B] hover:text-[#FAF9F5] transition-colors">Plan your visit <ArrowUpRight size={17} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></a>
         </div>
       </div>
     </section>

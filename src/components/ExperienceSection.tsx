@@ -24,24 +24,25 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
         {/* Section Heading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
-              <span className="w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
+            <div data-reveal="fade" className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+              <span className="rule-grow w-6 sm:w-8 h-[1px] bg-[#B99A5B]" />
               <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[#B99A5B] font-mono">
                 Curated Occasions
               </span>
             </div>
-            <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-serif-editorial font-light leading-tight uppercase tracking-tight">
+            <h2 data-reveal className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-serif-editorial font-light leading-tight uppercase tracking-tight">
               Made for <span className="italic text-[#B99A5B]">Your Moments</span>
             </h2>
           </div>
-          <p className="max-w-md text-xs sm:text-sm font-sans-body text-[#FAF9F5]/70 font-light leading-relaxed">
+          <p data-reveal data-reveal-delay="120" className="max-w-md text-xs sm:text-sm font-sans-body text-[#FAF9F5]/70 font-light leading-relaxed">
             HS Valley Farmhouse provides a private, secluded stage for memories that deserve an exceptional setting.
           </p>
         </div>
 
         {/* 2x2 Large Editorial Image Experience Grid */}
         <div
-          data-reveal ref={cardsContainerRef}
+          ref={cardsContainerRef}
+          data-reveal-stagger="120"
           className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8"
         >
           {experiencesData.map((item) => (
@@ -53,7 +54,8 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
               tabIndex={0}
               aria-label={`Inquire about ${item.title}`}
               onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onOpenInquiry(); } }}
-              className="group relative w-full min-w-0 rounded-2xl overflow-hidden min-h-[320px] aspect-[4/3] xs:aspect-[16/11] border border-[#FAF9F5]/10 bg-[#14251D]/50 shadow-2xl cursor-pointer"
+              data-reveal
+              className="group lift-card relative w-full min-w-0 rounded-2xl overflow-hidden min-h-[320px] aspect-[4/3] xs:aspect-[16/11] border border-[#FAF9F5]/10 bg-[#14251D]/50 shadow-2xl cursor-pointer"
             >
               {/* Background Image with Zoom */}
               <img
@@ -75,7 +77,7 @@ export function ExperienceSection({ onOpenInquiry }: ExperienceSectionProps) {
                 <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#B99A5B] bg-[#0B0F0D]/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#B99A5B]/30">
                   {item.tag}
                 </span>
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF9F5]/10 group-hover:bg-[#B99A5B] text-[#FAF9F5] group-hover:text-[#0B0F0D] flex items-center justify-center transition-all duration-300 backdrop-blur-xs">
+                <div className="icon-pop w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF9F5]/10 group-hover:bg-[#B99A5B] text-[#FAF9F5] group-hover:text-[#0B0F0D] flex items-center justify-center backdrop-blur-xs">
                   <ArrowUpRight size={14} />
                 </div>
               </div>

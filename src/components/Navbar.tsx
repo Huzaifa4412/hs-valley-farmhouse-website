@@ -65,7 +65,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
     <div ref={navigationRef}>
       <header
         id="main-navbar"
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        className={`nav-enter fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           isScrolled
             ? 'py-3 sm:py-3.5 bg-[#0B0F0D]/90 backdrop-blur-md border-b border-[#B99A5B]/15 shadow-xl'
             : 'py-4 sm:py-6 md:py-8 bg-transparent'
@@ -118,7 +118,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
               type="button"
               onClick={handleBookNowClick}
               data-cursor="explore"
-              className="group relative overflow-hidden px-3.5 xs:px-4 sm:px-5 md:px-7 py-2 sm:py-2.5 min-h-[44px] rounded-full border border-[#B99A5B]/50 bg-[#14251D]/80 hover:bg-[#B99A5B] text-[#FAF9F5] hover:text-[#0B0F0D] text-[10px] xs:text-[11px] sm:text-xs uppercase tracking-[0.12em] xs:tracking-[0.18em] sm:tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm focus:outline-hidden cursor-pointer flex items-center whitespace-nowrap"
+              className="group btn-sheen px-3.5 xs:px-4 sm:px-5 md:px-7 py-2 sm:py-2.5 min-h-[44px] rounded-full border border-[#B99A5B]/50 bg-[#14251D]/80 hover:bg-[#B99A5B] text-[#FAF9F5] hover:text-[#0B0F0D] text-[10px] xs:text-[11px] sm:text-xs uppercase tracking-[0.12em] xs:tracking-[0.18em] sm:tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm focus:outline-hidden cursor-pointer flex items-center whitespace-nowrap"
             >
               <span className="relative z-10 flex items-center gap-1">
                 <span>BOOK NOW</span>
@@ -133,9 +133,9 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
       <div
         id="navigation-menu"
         inert={!isMenuOpen}
-        className={`fixed inset-0 z-40 bg-[#0B0F0D]/95 backdrop-blur-2xl transition-all duration-500 flex flex-col justify-between overflow-y-auto p-5 sm:p-8 md:p-16 ${
+        className={`menu-panel fixed inset-0 z-40 bg-[#0B0F0D]/95 backdrop-blur-2xl transition-all duration-500 flex flex-col justify-between overflow-y-auto p-5 sm:p-8 md:p-16 ${
           isMenuOpen
-            ? 'opacity-100 pointer-events-auto translate-y-0'
+            ? 'is-open opacity-100 pointer-events-auto translate-y-0'
             : 'opacity-0 pointer-events-none -translate-y-6'
         }`}
         aria-hidden={!isMenuOpen}
@@ -179,12 +179,13 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
                   handleLinkClick(link.href);
                 }}
                 data-cursor="explore"
-                className="group flex items-center gap-3 sm:gap-4 text-xl sm:text-2xl md:text-4xl lg:text-5xl font-serif-editorial text-[#FAF9F5] hover:text-[#B99A5B] transition-colors py-1.5"
+                style={{ '--i': idx } as React.CSSProperties}
+                className="menu-link group flex items-center gap-3 sm:gap-4 text-xl sm:text-2xl md:text-4xl lg:text-5xl font-serif-editorial text-[#FAF9F5] hover:text-[#B99A5B] transition-colors py-1.5"
               >
-                <span className="text-[11px] sm:text-xs font-mono text-[#B99A5B]/60 group-hover:text-[#B99A5B]">
+                <span className="menu-link-index text-[11px] sm:text-xs font-mono text-[#B99A5B]/60 group-hover:text-[#B99A5B]">
                   0{idx + 1}
                 </span>
-                <span className="tracking-wide">{link.label}</span>
+                <span className="menu-link-label tracking-wide">{link.label}</span>
               </a>
             ))}
           </nav>
@@ -210,7 +211,7 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
             <button
               type="button"
               onClick={handleBookNowClick}
-              className="w-full sm:w-auto bg-[#B99A5B] hover:bg-[#a6884e] text-[#0B0F0D] text-xs uppercase tracking-[0.2em] font-semibold py-3 px-6 rounded-full transition-all min-h-[44px] flex items-center justify-center cursor-pointer shadow-lg"
+              className="btn-sheen w-full sm:w-auto bg-[#B99A5B] hover:bg-[#a6884e] text-[#0B0F0D] text-xs uppercase tracking-[0.2em] font-semibold py-3 px-6 rounded-full transition-all min-h-[44px] flex items-center justify-center cursor-pointer shadow-lg"
             >
               Reserve Sanctuary
             </button>
